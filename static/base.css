@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Avara', serif;
+    font-weight: normal;
+    font-style: normal;
+    color: #e8e2e1;
+
+    text-shadow: 2px 2px 5px black;
+}
+
+@font-face {
+    font-family: "Avara";
+    src:
+            local("Avara");
+            url("/static/fonts/Avara.otf") format("otf"),
+            url("/static/fonts/Avara-italic.otf") format("otf");
+}
+
+body {
+    margin: 0;
+    background-color: #502525;
+    min-height: 100vh;
+}
+
+#main-box {
+    display: flex;
+    justify-content: center;
+
+    width: 75vw;
+    padding: 10vh 5vw 10vh 5vw;
+    overflow: auto;
+
+    background-color: #3b1b19;
+
+    border: ridge 7px #ffbf24;
+    border-top: none;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+input[type=submit] {
+    cursor: pointer;
+}
+
+input[type=radio] {
+    cursor: pointer;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}

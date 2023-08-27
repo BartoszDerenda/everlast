@@ -1,0 +1,50 @@
+#main-box {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    font-size: 1.3em;
+
+    border-bottom: none;
+}
+
+.first-layer, .second-layer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0 50px;
+    padding-bottom: 20%;
+}
+
+.first-layer {
+
+}
+
+.second-layer {
+
+}
+
+.bottom-layer {
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    border-bottom: ridge 4px #ffbf24;
+    border-radius: 20%;
+}
+
+.text-item {
+    max-width: 50%;
+}
+
+.left-border {
+    border-left: ridge 4px #ffbf24;
+    padding-left: 20px;
+}
+
+.right-border {
+    border-right: ridge 4px #ffbf24;
+    padding-right: 20px;
+}
+
+img {
+    max-width: 50%;
+}
