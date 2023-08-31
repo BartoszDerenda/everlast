@@ -5,4 +5,13 @@
 {% endblock %}
 
 {% block content %}
+    <div class="center">
+        <div id="main-box">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

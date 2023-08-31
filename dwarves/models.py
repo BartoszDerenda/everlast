@@ -33,8 +33,8 @@ class Dwarf(models.Model):
     leader = models.TextField()
     level = models.IntegerField()
 
-    base_attributes = models.JSONField(default=base_attributes)
-    trained_attributes = models.JSONField(default=trained_attributes)
+    attr_base = models.JSONField(default=base_attributes)
+    attr_trained = models.JSONField(default=trained_attributes)
 
     tactic = models.TextField(default="Frenzy")
     equipment = models.JSONField(default=default_equipment)

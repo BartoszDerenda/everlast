@@ -1,24 +1,22 @@
 * {
     box-sizing: border-box;
-    font-family: 'Avara', serif;
+    font-family: Avara, serif;
     font-weight: normal;
     font-style: normal;
-    color: #e8e2e1;
 
+    color: #eedfdc;
+    text-decoration: none;
     text-shadow: 2px 2px 5px black;
 }
 
 @font-face {
-    font-family: "Avara";
-    src:
-            local("Avara");
-            url("/static/fonts/Avara.otf") format("otf"),
-            url("/static/fonts/Avara-italic.otf") format("otf");
+    font-family: Avara;
+    src: url("../static/fonts/Avara.otf") format("opentype")
 }
 
 body {
     margin: 0;
-    background-color: #502525;
+    background-image: linear-gradient(#73261e, #000000);
     min-height: 100vh;
 }
 
@@ -30,7 +28,7 @@ body {
     padding: 10vh 5vw 10vh 5vw;
     overflow: auto;
 
-    background-color: #3b1b19;
+    background-color: rgba(59, 27, 25, 90%);
 
     border: ridge 7px #ffbf24;
     border-top: none;

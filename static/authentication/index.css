@@ -3,8 +3,13 @@
     flex-wrap: wrap;
 
     font-size: 1.3em;
+    padding: 10vh 5vw 0 5vw;
 
     border-bottom: none;
+}
+
+h1 {
+    font-size: 5em;
 }
 
 .first-layer, .second-layer {
@@ -16,19 +21,20 @@
     padding-bottom: 20%;
 }
 
-.first-layer {
-
-}
-
-.second-layer {
-
-}
-
 .bottom-layer {
-    margin-bottom: 50px;
+    margin-bottom: 200px;
     padding-bottom: 20px;
-    border-bottom: ridge 4px #ffbf24;
-    border-radius: 20%;
+}
+
+.signup-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    gap: 50px 0;
+
+    padding-top: 200px;
 }
 
 .text-item {
@@ -47,4 +53,25 @@
 
 img {
     max-width: 50%;
+}
+
+.signup {
+    font-size: 2.2em;
+    color: #ffc133;
+
+    transition: 0.15s ease-in;
+}
+
+.signup:hover {
+    color: #ff8800;
+}
+
+.login {
+    color: #d9a11e;
+
+    transition: 0.15s ease-in;
+}
+
+.login:hover {
+    color: #e38808;
 }
