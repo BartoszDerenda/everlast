@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(unique=True, max_length=64)
+class Account(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(unique=True, max_length=32)
     email = models.EmailField(_('email_address'), unique=True, max_length=254)
     date_joined = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)

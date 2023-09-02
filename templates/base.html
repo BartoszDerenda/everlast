@@ -9,11 +9,24 @@
     {% block stylesheets %}
     {% endblock %}
 
+    {% block scripts %}
+    {% endblock %}
+
 </head>
 <body>
+    <div id="navbar">
+        {% block navbar %}
+        {% endblock %}
+    </div>
 
-{% block content %}
-{% endblock %}
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
+    <div id="status-tab">
+        {% block status-tab %}
+        {% endblock %}
+    </div>
 </body>
 </html>

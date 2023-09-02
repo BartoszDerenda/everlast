@@ -1,7 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.db.models import fields
 from django import forms
-from accounts.models import CustomUser
+from accounts.models import Account
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -12,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
-        model = CustomUser
+        model = Account
         fields = ('username', 'email',)
 
     def clean_email(self):
@@ -45,7 +44,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
-        model = CustomUser
+        model = Account
         fields = ('username', 'email',)
 
     def clean_password(self):
@@ -53,3 +52,21 @@ class CustomUserChangeForm(UserChangeForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password1"]
+
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=32)
+    password = forms.CharField(max_length=128, widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        # Honestly, I am still not sure what these are for.

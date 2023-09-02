@@ -1,17 +1,48 @@
 {% extends 'base.html' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/authentication/signup.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/authentication/base/auth-base.css" type="text/css"/>
 {% endblock %}
 
+
 {% block content %}
+
+    {% if success is false %}
+
+    <a class="logo" href="/">Everlast</a>
     <div class="center">
         <div id="main-box">
-            <form method="POST">
+
+            <h2>Sign up</h2>
+            <form id="signup-form" method="POST">
+
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Sign up</button>
+                  {% for field in form %}
+                      <div class="form-item">
+                        <span class="form-title">{{ field.label_tag }}</span><br>
+                        <span class="form-field">{{ field }}</span>
+                        {% if field.help_text %}
+                          <small style="display: none ">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div>
+                                <br><span class="error-message">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                      </div>
+                  {% endfor %}
+                <div class="button-container">
+                    <button type="submit">Sign up</button>
+                </div>
+
             </form>
         </div>
     </div>
+    <span>Already have an account? <a class="login" href="/login">Login here.</a></span>
+
+    {% else %}
+        <h2>Please confirm your email address to complete the registration.</h2>
+        <span>You can <a class="login" href="/login">login here.</a></span>
+    {% endif %}
+
 {% endblock %}

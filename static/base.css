@@ -16,22 +16,62 @@
 
 body {
     margin: 0;
-    background-image: linear-gradient(#73261e, #000000);
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background: url("city.png") no-repeat fixed bottom;
+    background-size: cover;
     min-height: 100vh;
 }
 
-#main-box {
+#navbar, #status-tab {
+    display: flex;
+    flex-flow: column;
+
+    position: fixed;
+    bottom: 0;
+    top: 0;
+
+    width: 15vw;
+    height: 100vh;
+
+    background-color: rgba(59, 27, 25, 80%);
+}
+
+#navbar {
+    border-right: ridge 2px #ffbf24;
+    left: 0;
+}
+
+#status-tab {
+    border-left: ridge 2px #ffbf24;
+    right: 0;
+}
+
+#content {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 
-    width: 75vw;
+    width: 50vw;
     padding: 10vh 5vw 10vh 5vw;
     overflow: auto;
 
-    background-color: rgba(59, 27, 25, 90%);
-
-    border: ridge 7px #ffbf24;
+    background-color: rgba(59, 27, 25, 80%);
+    border: ridge 2px #ffbf24;
     border-top: none;
+    border-bottom: none;
+}
+
+.logo {
+    text-align: center;
+
+    > h2 {
+        color: #ffbf24;
+    }
 }
 
 .center {

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/authentication/base/auth-base.css" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <a class="logo" href="/">Everlast</a>
+    <div class="center">
+        <div id="main-box">
+
+            <h2>Login</h2>
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                      <div class="form-item">
+                        <span class="form-title">{{ field.label_tag }}</span><br>
+                        <span class="form-field">{{ field }}</span>
+                        {% if field.help_text %}
+                          <small style="display: none ">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div>
+                                <br><span class="error-message">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                      </div>
+                {% endfor %}
+                <div class="button-container">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock content%}
