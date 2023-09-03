@@ -37,6 +37,7 @@ body {
 
     width: 15vw;
     height: 100vh;
+    padding: 15px;
 
     background-color: rgba(59, 27, 25, 80%);
 }
@@ -44,6 +45,14 @@ body {
 #navbar {
     border-right: ridge 2px #ffbf24;
     left: 0;
+
+    > h3 {
+        color: #ff8800;
+    }
+
+    > a {
+        color: #ffbf24;
+    }
 }
 
 #status-tab {
@@ -53,7 +62,6 @@ body {
 
 #content {
     display: flex;
-    justify-content: center;
     flex-direction: column;
 
     width: 50vw;

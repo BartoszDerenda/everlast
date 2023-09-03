@@ -65,10 +65,10 @@ def activate(request, uidb64, token):
 
 
 def sign_in(request):
-    if request.method == 'GET':
-        if request.user.is_authenticated:
-            return redirect('homepage')
+    if request.user.is_authenticated:
+        return redirect('homepage')
 
+    if request.method == 'GET':
         form = LoginForm()
         return render(request, 'authentication/signin.html', {'form': form})
 

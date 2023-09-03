@@ -6,13 +6,19 @@
 {% endblock %}
 
 {% block navbar %}
-    <span>Hi {{ request.user.username | title }}</span>
-    <a href="{% url 'logout' %}">Logout</a>
+    {% include 'navbar.html' %}
 {% endblock %}
 
 {% block content %}
-    Hello {{ user }}!
+    <div id="news">
+        <h2>Morning Dew</h2>
+        <div class="article">
+            <span class="article-title">Test</span>
+            <span class="article-content">Test</span>
+        </div>
+    </div>
 {% endblock %}
 
 {% block status-tab %}
+    {% include 'status-tab.html' %}
 {% endblock %}

@@ -30,7 +30,7 @@ def is_staff(self):
 
 @property
 def is_admin(self):
-    """Is the user a admin member?"""
+    """Is the user an admin member?"""
     return self.admin
 
 
