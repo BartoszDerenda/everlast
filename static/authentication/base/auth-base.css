@@ -32,7 +32,7 @@
 
 .form-title {
     > * {
-        font-family: "Trebuchet MS", serif;
+        font-family: Nunito-sans, serif;
         font-size: 1.2em;
         font-weight: bold;
     }
@@ -42,7 +42,7 @@
     > * {
         padding: 5px;
 
-        font-family: "Trebuchet MS", serif;
+        font-family: Nunito-sans, serif;
         font-size: 1.2em;
         background-color: #672e2b;
     }
@@ -51,7 +51,7 @@
 .error-message {
     color: red;
     text-align: left;
-    font-family: "Trebuchet MS", serif;
+    font-family: Nunito-sans, serif;
     font-size: 1.2em;
 }
 

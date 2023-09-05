@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Avara, serif;
+    font-family: Avara, Nunito-sans, serif;
     font-weight: normal;
     font-style: normal;
 
@@ -11,7 +11,12 @@
 
 @font-face {
     font-family: Avara;
-    src: url("../static/fonts/Avara.otf") format("opentype")
+    src: url("../static/fonts/Avara.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Nunito-sans;
+    src: url("../static/fonts/NunitoSans.ttf") format("truetype");
 }
 
 body {
@@ -51,6 +56,8 @@ body {
     }
 
     > a {
+        font-family: Nunito-sans, serif;
+        font-weight: bold;
         color: #ffbf24;
     }
 }

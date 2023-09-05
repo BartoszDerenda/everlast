@@ -10,9 +10,6 @@ class CustomUserManager(BaseUserManager):
         """
         if not username:
             raise ValueError(_('The username must be set'))
-        username = self.normalize_username(username)
-        # this might not work, as it is from AbstractBaseUser import but idk
-
         if not email:
             raise ValueError(_('The email must be set'))
         email = self.normalize_email(email)

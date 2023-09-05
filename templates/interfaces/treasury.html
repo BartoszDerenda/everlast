@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/interfaces/treasury.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/interfaces/base/interfaces-base.css" type="text/css"/>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function displayItems(category) {
+            if (document.getElementById(category).style.display === "flex") {
+                document.getElementById(category).style.display = "none";
+            } else {
+                document.getElementById(category).style.display = "flex";
+            }
+        }
+
+
+    </script>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Treasury</h1>
+    <div id="treasury-box">
+
+        <h2 class="storage-widget" onclick="displayItems('materials')">Materials</h2>
+        <div id="materials">
+            {% for item in owned_materials %}
+                <div
+                {% if item.rarity == 'common' %}
+                class="item-box common"
+                {% elif item.rarity == 'rare' %}
+                class="item-box rare"
+                {% elif item.rarity == 'epic' %}
+                class="item-box epic"
+                {% elif item.rarity == 'legendary' %}
+                class="item-box legendary"
+                {% endif %}
+                >
+                    <div class="item-image">
+                        <img src="/static/placeholder.png"  alt="{{ item.name }}"/>
+                    </div>
+                    <div class="item-info">
+                        <p><span class="item-name">{{ item.name }}</span> x{{ item.quantity }} <span class="fade-out ">{{ item.rarity }}</span></p>
+                        <p class="tooltip">{{ item.tooltip }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <h2 class="storage-widget" onclick="displayItems('weapons')">Weapons</h2>
+        <div id="weapons">
+            {% for item in owned_weapons %}
+                <div
+                {% if item.rarity == 'common' %}
+                class="item-box common"
+                {% elif item.rarity == 'rare' %}
+                class="item-box rare"
+                {% elif item.rarity == 'epic' %}
+                class="item-box epic"
+                {% elif item.rarity == 'legendary' %}
+                class="item-box legendary"
+                {% endif %}
+                >
+                    <div class="item-image">
+                        <img src="/static/placeholder.png"  alt="{{ item.name }}"/>
+                    </div>
+                    <div class="item-info">
+                        <p><span class="item-name">{{ item.name }}</span> x{{ item.quantity }} <span class="fade-out ">{{ item.rarity }}</span></p>
+                        <p class="tooltip">{{ item.tooltip }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="storage-widget" onclick="displayItems('armors')">Armors</h2>
+        <div id="armors">
+
+
+        </div>
+
+        <h2 class="storage-widget" onclick="displayItems('runes')">Runes</h2>
+        <div id="runes">
+
+
+        </div>
+
+        <h2 class="storage-widget" onclick="displayItems('recipes')">Recipes</h2>
+        <div id="recipes">
+
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}
