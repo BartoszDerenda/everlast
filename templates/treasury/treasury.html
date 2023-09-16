@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/interfaces/treasury.css" type="text/css"/>
-    <link rel="stylesheet" href="/static/interfaces/base/interfaces-base.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/treasury/treasury.css" type="text/css"/>
 {% endblock %}
 
 {% block scripts %}
@@ -42,7 +41,7 @@
                 {% endif %}
                 >
                     <div class="item-image">
-                        <img src="/static/placeholder.png"  alt="{{ item.name }}"/>
+                        <img src="/static/placeholder.png" alt="{{ item.name }}"/>
                     </div>
                     <div class="item-info">
                         <p><span class="item-name">{{ item.name }}</span> x{{ item.quantity }} <span class="fade-out ">{{ item.rarity }}</span></p>
@@ -55,7 +54,12 @@
 
         <h2 class="storage-widget" onclick="displayItems('weapons')">Weapons</h2>
         <div id="weapons">
-            {% for item in owned_weapons %}
+
+        </div>
+
+        <h2 class="storage-widget" onclick="displayItems('armors')">Armors</h2>
+        <div id="armors">
+            {% for item in owned_armors %}
                 <div
                 {% if item.rarity == 'common' %}
                 class="item-box common"
@@ -68,7 +72,7 @@
                 {% endif %}
                 >
                     <div class="item-image">
-                        <img src="/static/placeholder.png"  alt="{{ item.name }}"/>
+                        <img src="/placeholder.png" alt="{{ item.name }}"/>
                     </div>
                     <div class="item-info">
                         <p><span class="item-name">{{ item.name }}</span> x{{ item.quantity }} <span class="fade-out ">{{ item.rarity }}</span></p>
@@ -76,12 +80,6 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
-
-        <h2 class="storage-widget" onclick="displayItems('armors')">Armors</h2>
-        <div id="armors">
-
-
         </div>
 
         <h2 class="storage-widget" onclick="displayItems('runes')">Runes</h2>
