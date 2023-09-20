@@ -40,31 +40,120 @@ body {
     bottom: 0;
     top: 0;
 
-    width: 15vw;
+    width: 17vw;
     height: 100vh;
     padding: 15px;
 
     background-color: rgba(59, 27, 25, 80%);
+
+    @media (max-width: 1500px) {
+        width: 20vw;
+    }
 }
 
 #navbar {
+    display: flex;
     border-right: ridge 2px #ffbf24;
     left: 0;
 
-    > h3 {
-        color: #ff8800;
+    > #navbar-top {
+        display: flex;
+        align-items: flex-end;
+
+        gap: 10px;
     }
 
-    > a {
+    > .navbar-segment {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 20px;
+    }
+
+    > div > h3 {
+        font-size: 1.25em;
+        color: #ff8800;
+        margin-bottom: 5px
+    }
+
+    > div > a {
+        font-size: 1.05em;
         font-family: Nunito-sans, serif;
         font-weight: bold;
         color: #ffbf24;
+        margin-bottom: 3px;
+        padding: 3px 0 3px 2px;
+    }
+
+    > .navbar-segment > a:hover {
+        background-color: #702E25FF;
     }
 }
 
 #status-tab {
+    display: flex;
     border-left: ridge 2px #ffbf24;
     right: 0;
+
+    > #status-tab-top {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: -20px;
+    }
+
+    > .status-tab-segment {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 20px;
+    }
+
+    > div > h3 {
+        font-size: 1.25em;
+        color: #ff8800;
+        margin-bottom: 5px
+    }
+
+    > div > a {
+        font-size: 1.05em;
+        font-family: Nunito-sans, serif;
+        font-weight: bold;
+        color: #ffbf24;
+        margin-bottom: 3px;
+        padding: 3px 0 3px 2px;
+    }
+
+    > .status-tab-segment > .dwarf-info, .crafting-info {
+        position: relative;
+
+        background-color: #702E25FF;
+        padding: 8px 0 30px 10px;
+        margin-bottom: 10px;
+
+        > * {
+            font-family: Nunito-sans, serif;
+            font-weight: bold;
+        }
+
+        > .dwarf-name, .crafting-name {
+            font-size: 1.1em;
+        }
+
+        > .dwarf-status, .crafting-status {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            font-size: 0.9em;
+            color: #aaff22;
+
+            padding: 0 0 5px 10px;
+        }
+    }
+
+    > .status-tab-segment > .dwarf-info:hover, .crafting-info:hover {
+        background-color: #8c2d24;
+    }
 }
 
 #content {
@@ -87,6 +176,10 @@ body {
     > h2 {
         color: #ffbf24;
     }
+}
+
+.avatar {
+    max-width: 33%;
 }
 
 .center {

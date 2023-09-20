@@ -1,9 +1,21 @@
-<a href="/">{{ request.user.username | title }}, leader of {{ request.user.warband }}</a>
+<div id="navbar-top">
+    <img src="../static/placeholder.png" alt="avatar" class="avatar" />
+    <a href="/">{{ request.user.username | title }}</a>
+</div>
 
-<h3>Den</h3>
-<a href="/">Barracks</a>
-<a href="{% url 'treasury' %}">Treasury</a>
-<h3>Craftsmen's guild</h3>
-<a href="/">Blacksmithing</a>
-<a href="/">Alchemy</a>
-<a href="/">Runecrafting</a>
+<div class="navbar-segment">
+    <h3>Den</h3>
+    <a href="/">Barracks</a>
+    <a href="{% url 'treasury' %}">Treasury</a>
+    <a href="/">Crafting</a>
+</div>
+
+<div class="navbar-segment">
+    <h3>Town</h3>
+    <a href="/">Marketplace</a>
+</div>
+
+<div class="navbar-segment">
+    <h3>Beyonds</h3>
+    <a href="/">Expeditions</a>
+</div>
