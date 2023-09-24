@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'settings/settings.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

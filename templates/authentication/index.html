@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/authentication/index.css" type="text/css"/>
-    <link rel="stylesheet" href="/static/authentication/base/auth-base.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'authentication/index.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'authentication/auth-base.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block content %}
@@ -14,10 +15,10 @@
                 eget ultricies risus nisi at neque. Nam iaculis purus et erat fringilla,
                 at varius nibh cursus.</p>
         </div>
-        <img src="/static/placeholder.png" alt="placeholder">
+        <img src="{% static 'placeholder.png' %}" alt="placeholder">
     </div>
     <div class="second-layer text-align-left">
-        <img src="/static/placeholder.png" alt="placeholder">
+        <img src="{% static 'placeholder.png' %}" alt="placeholder">
         <div class="text-item left-border">
             <h2>Lorem ipsum</h2>
             <p>Mauris condimentum, justo ut ultricies semper, augue nulla gravida nunc,

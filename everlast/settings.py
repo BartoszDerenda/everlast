@@ -38,12 +38,14 @@ INSTALLED_APPS = [
 
     'authentication',
     'accounts',
-    'interfaces',
+    'homepage',
     'dwarves',
     'combat',
     'items',
     'expeditions',
-    'trading',
+    'marketplace',
+    'crafting',
+    'training',
 ]
 
 MIDDLEWARE = [

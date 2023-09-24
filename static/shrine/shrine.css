@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+    color: #ffbf24;
+}
+
+#main-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    padding-top: 35px;
+}
+
+.perk-path {
+    display: flex;
+}
+
+.perk-item {
+    background-color: #ff8800;
+    min-width: 10px;
+    min-height: 10px;
+}

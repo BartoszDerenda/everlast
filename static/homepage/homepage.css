@@ -1,0 +1,26 @@
+#news {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    border: ridge 3px #a97c0a;
+    background-color: #96703e;
+
+    > .article {
+        display: flex;
+        flex-direction: column;
+
+        padding: 10px;
+
+        background-color: #725631;
+
+        > .article-title {
+            font-size: 1.2em;
+        }
+
+        > .article-content {
+
+        }
+    }
+}

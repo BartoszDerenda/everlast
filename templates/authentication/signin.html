@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/authentication/base/auth-base.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'authentication/auth-base.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block content %}
     <a class="logo" href="/">Everlast</a>
     <div class="center">
-        <div id="main-box">
+        <div>
 
             <h2>Login</h2>
             <form method="POST" novalidate>

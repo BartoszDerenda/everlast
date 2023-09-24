@@ -38,7 +38,7 @@ def treasury(request):
     item_type_list_generator(runes_list, owned_runes)
     item_type_list_generator(recipes_list, owned_recipes)
 
-    return render(request, "treasury/treasury.html", {
+    return render(request, "../templates/items/treasury.html", {
         'owned_materials': owned_materials,
         'owned_weapons': owned_weapons,
         'owned_armors': owned_armors,

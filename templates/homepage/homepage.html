@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'homepage/homepage.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="news">
+        <h2>Morning Dew</h2>
+        <div class="article">
+            <span class="article-title">Test</span>
+            <span class="article-content">Test</span>
+        </div>
+    </div>
+
+    <div id="ranking">
+        <h2>Ranking</h2>
+        <div class="ranking-box">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

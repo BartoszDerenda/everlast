@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'dwarves/barracks.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <form action="/barracks/" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Yep, that's about right.">
+    </form>
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

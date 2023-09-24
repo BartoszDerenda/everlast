@@ -1,21 +1,26 @@
+{% load static %}
+
 <div id="navbar-top">
-    <img src="../static/placeholder.png" alt="avatar" class="avatar" />
+    <img src="{% static 'placeholder.png' %}" alt="avatar" class="avatar" />
     <a href="/">{{ request.user.username | title }}</a>
 </div>
 
 <div class="navbar-segment">
     <h3>Den</h3>
-    <a href="/">Barracks</a>
+    <a href="{% url 'barracks' %}">Barracks</a>
+    <a href="{% url 'shrine' %}">Shrine</a>
+    <a href="{% url 'training' %}">Training</a>
     <a href="{% url 'treasury' %}">Treasury</a>
-    <a href="/">Crafting</a>
+    <a href="{% url 'crafting' %}">Crafting</a>
 </div>
 
 <div class="navbar-segment">
     <h3>Town</h3>
-    <a href="/">Marketplace</a>
+    <a href="{% url 'homepage' %}">Town square</a>
+    <a href="{% url 'marketplace' %}">Marketplace</a>
 </div>
 
 <div class="navbar-segment">
-    <h3>Beyonds</h3>
-    <a href="/">Expeditions</a>
+    <h3>Outdoors</h3>
+    <a href="{% url 'expeditions' %}">Expeditions</a>
 </div>

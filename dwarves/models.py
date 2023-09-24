@@ -1,17 +1,33 @@
 from django.db import models
 
-
-def base_attributes():
-    return {"base_str": 1, "base_int": 1, "base_agi": 1, "base_will": 1, "base_end": 1, "base_char": 1, "base_lck": 1,
-            "base_spd": 1}
+from accounts.models import Account
 
 
-def trained_attributes():
-    return {"trained_str": 0, "trained_int": 0, "trained_agi": 0, "trained_will": 0, "trained_end": 0,
-            "trained_char": 0, "trained_lck": 0, "trained_spd": 0}
+def attributes_base():
+    return {"strength_base": 1, "intelligence_base": 1, "agility_base": 1, "willpower_base": 1, "endurance_base": 1,
+            "charisma_base": 1, "luck_base": 1, "speed_base": 1}
 
 
-def default_equipment():
+def attributes_trained():
+    return {"strength_trained": 0, "intelligence_trained": 0, "agility_trained": 0, "willpower_trained": 0,
+            "endurance_trained": 0, "charisma_trained": 0, "luck_trained": 0, "speed_trained": 0}
+
+
+def attribute_multipliers():
+    return {"strength_multiplier": 0, "intelligence_multiplier": 0, "agility_multiplier": 0, "willpower_multiplier": 0,
+            "endurance_multiplier": 0, "charisma_multiplier": 0, "luck_multiplier": 0, "speed_multiplier": 0}
+
+
+def attributes_total():
+    return {"strength_total": 0, "intelligence_total": 0, "agility_total": 0, "willpower_total": 0,
+            "endurance_total": 0, "charisma_total": 0, "luck_total": 0, "speed_total": 0}
+
+
+def default_status():
+    return {'idle': None}
+
+
+def equipment():
     return {"head": None,
             "shoulders": None,
             "chest": None,
@@ -23,18 +39,24 @@ def default_equipment():
                 "off_hand": None,
                 "two_hand": None
             },
-            "artifact_1": None,
-            "artifact_2": None
+            "artifact": None,
             }
 
 
 class Dwarf(models.Model):
     name = models.CharField(max_length=32)
-    leader = models.TextField()
-    level = models.IntegerField()
+    leader = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
+    status = models.JSONField(default=default_status)
 
-    attr_base = models.JSONField(default=base_attributes)
-    attr_trained = models.JSONField(default=trained_attributes)
+    equipment = models.JSONField(default=equipment)
 
-    tactic = models.TextField(default="Frenzy")
-    equipment = models.JSONField(default=default_equipment)
+    attributes_base = models.JSONField(default=attributes_base)
+    attributes_trained = models.JSONField(default=attributes_trained)
+    attribute_multipliers = models.JSONField(default=attribute_multipliers)
+    attributes_total = models.JSONField(default=attributes_total)
+
+    physical_armor = models.FloatField(default=0.00)
+    magical_armor = models.FloatField(default=0.00)
+
+    ability_cap = models.IntegerField(default=0)
+    abilities = models.JSONField(default=dict, blank=True)

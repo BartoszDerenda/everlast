@@ -17,9 +17,11 @@ class Weapon(Item):
 
     attr_bonus = models.JSONField(default=dict)
     attr_multi = models.JSONField(default=dict)
+
     physical_armor = models.IntegerField(null=True, blank=True)
     magical_armor = models.IntegerField(null=True, blank=True)
-    abilities = models.JSONField(default=dict, null=True, blank=True)
+
+    enhancements = models.JSONField(default=dict, null=True, blank=True)
 
 
 class Armor(Item):
@@ -28,9 +30,11 @@ class Armor(Item):
 
     attr_bonus = models.JSONField(default=dict)
     attr_multi = models.JSONField(default=dict)
-    physical_armor = models.IntegerField(null=True, blank=True)
-    magical_armor = models.IntegerField(null=True, blank=True)
-    abilities = models.JSONField(default=dict, null=True, blank=True)
+
+    physical_armor = models.IntegerField()
+    magical_armor = models.IntegerField()
+
+    enhancements = models.JSONField(default=dict, null=True, blank=True)
 
 
 class Material(Item):

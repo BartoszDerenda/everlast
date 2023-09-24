@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/authentication/base/auth-base.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'authentication/auth-base.css' %}" type="text/css"/>
 {% endblock %}
-
 
 {% block content %}
 
@@ -41,8 +41,15 @@
     <span>Already have an account? <a class="login" href="/login">Login here.</a></span>
 
     {% else %}
-        <h2>Please confirm your email address to complete the registration.</h2>
-        <span>You can <a class="login" href="/login">login here.</a></span>
+
+        <a class="logo" href="/">Everlast</a>
+        <div class="center">
+            <div id="success">
+                <h2>Please confirm your email address to complete the registration.</h2>
+                <span>You can <a class="login" href="/login">login here.</a></span>
+            </div>
+        </div>
+
     {% endif %}
 
 {% endblock %}

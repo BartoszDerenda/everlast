@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'shrine/shrine.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Shrine</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis mauris
+        eros, ac facilisis nisi facilisis non. Praesent tempus auctor sapien in maximus.</p>
+    <div id="main-box">
+        <div class="perk-path">
+            <div class="perk-item">
+            </div>
+            <div class="perk-item">
+            </div>
+            <div class="perk-item">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

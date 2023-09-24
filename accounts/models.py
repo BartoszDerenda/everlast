@@ -6,22 +6,44 @@ from .managers import CustomUserManager
 
 
 def treasury_template():
-    return {'Iron Ore': 1, 'Iron Ingot': 2, 'Oak Wood': 0, 'Oak Plank': 4,
+    return {'Iron Ore': 1, 'Iron Ingot': 2, 'Oak Wood': 0, 'Oak Plank': 4, 'Meteorite Ingot': 2,
 
-            'Iron Tasset': 2, 'Iron Helmet': 0,
+            'Iron Tasset': 2, 'Iron Helmet': 0, 'Dragonscale Chestplate': 14,
 
-            'Iron Mace': 0, 'Oak Staff': 10,
+            'Iron Mace': 0, 'Oak Staff': 10, 'Flameberg': 4,
+            }
+
+
+def known_recipes_template():
+    return {'Iron Ingot': True, 'Oak Plank': True, 'Meteorite Ingot': True,
+
+            'Iron Tasset': False, 'Iron Helmet': True, 'Dragonscale Chestplate': True,
+
+            'Iron Mace': True, 'Oak Staff': False, 'Flameberg': True,
             }
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=32)
     email = models.EmailField(_('email_address'), unique=True, max_length=254)
+
     date_joined = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    dwarves = models.JSONField(default=list)
+
+    dwarves = models.JSONField(default=list, blank=True)
     treasury = models.JSONField(default=treasury_template)
+    known_recipes = models.JSONField(default=known_recipes_template)
+
+    gold = models.IntegerField(default=0)
+    rubies = models.IntegerField(default=0)
+
+    level = models.IntegerField(default=1)
+    experience = models.IntegerField(default=0)
+    perk_points = models.IntegerField(default=1)
+    adventuring_perks = models.IntegerField(default=0)
+    combat_perks = models.IntegerField(default=0)
+    crafting_perks = models.IntegerField(default=0)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'password']
