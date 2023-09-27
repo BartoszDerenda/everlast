@@ -36,16 +36,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'authentication',
-    'accounts',
-    'homepage',
-    'dwarves',
-    'combat',
-    'items',
-    'expeditions',
-    'marketplace',
-    'crafting',
-    'training',
+    'apps.authentication',
+    'apps.accounts',
+    'apps.homepage',
+    'apps.dwarves',
+    'apps.combat',
+    'apps.items',
+    'apps.expeditions',
+    'apps.marketplace',
+    'apps.crafting',
+    'apps.training',
 ]
 
 MIDDLEWARE = [
