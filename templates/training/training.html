@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'training/training.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/training/training.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'training/training.js' %}"></script>
+    <script src="{% static 'css/training/training.js' %}"></script>
 {% endblock %}
 
 {% block navbar %}
@@ -19,60 +19,12 @@
         eros, ac facilisis nisi facilisis non. Praesent tempus auctor sapien in maximus.</p>
     <div id="main-box">
 
-        {% for attribute, training_info in training_types.items %}
-
-            <div class="training-box">
-                <img src="/static/placeholder.png" alt="training" />
-                <div class="training-info">
-                    <h3>{{ attribute|capfirst }}</h3>
-                    <div class="items-required">
-
-                    {% for item_name, quantity in training_info.method.cost.items %}
-                        <div class="item">
-                            <img src="/static/placeholder.png" alt="item-icon" />
-                            <span>{{ item_name }}</span>
-                            <span id="{{ attribute }}-quantity-{{ forloop.counter }}">x{{ quantity }}</span>
-                        </div>
-                    {% endfor %}
-
-                    </div>
-                </div>
-
-                <div class="training-result">
-                    <div>
-                        <span>Time:</span><span id="{{ attribute }}-time">15 min</span>
-                    </div>
-                    <div>
-                        <span>Results:</span><span id="{{ attribute }}-results">+1 {{ attribute|capfirst }}</span>
-                    </div>
-                </div>
-
-                <form action="/training/" method="POST" id="strength-training">
-
-                    {% csrf_token %}
-
-                    <label for="strength-method">Training method:</label>
-                    <select name="training-method" id="strength-method" form="{{ attribute }}-training"
-                            onchange="checkMethod('{{ attribute }}')">
-                        <option value="method_1">Throwing rocks</option>
-                        <option value="method_2">Full-dwarf workout</option>
-                        <option value="method_3">Tavern brawl</option>
-                        <option value="method_4">Winning a war</option>
-                    </select>
-
-                    <label for="{{ attribute }}-dwarf">Select dwarf:</label>
-                    <select name="select-dwarf" id="{{ attribute }}-dwarf" form="{{ attribute }}-training">
-                        {% for dwarf in warband %}
-                            <option value="{{ dwarf.id }}">{{ dwarf.name }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <input type="submit" value="Begin training!">
-
-                </form>
-            </div>
-
-        {% endfor %}
+    <form action="/training/" method="POST">
+        {% csrf_token %}
+        <p>{{ form.method.label }}</p>
+        {{ form }}
+        <input type="submit">
+    </form>
 
     </div>
 {% endblock %}

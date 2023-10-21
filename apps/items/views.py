@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+
+from apps.dwarves.models import Dwarf
 from apps.items.models import Weapon, Armor, Material, Rune, Recipe
 from apps.accounts.models import Account
 
@@ -38,7 +40,9 @@ def treasury(request):
     item_type_list_generator(runes_list, owned_runes)
     item_type_list_generator(recipes_list, owned_recipes)
 
+    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
     return render(request, "../templates/items/treasury.html", {
+        'warband': warband,
         'owned_materials': owned_materials,
         'owned_weapons': owned_weapons,
         'owned_armors': owned_armors,

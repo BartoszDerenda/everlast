@@ -8,6 +8,7 @@
 }
 
 .logo, h2 {
+    font-family: Avara, serif;
     text-align: center;
     color: #ffbf24;
 }
@@ -32,7 +33,6 @@
 
 .form-title {
     > * {
-        font-family: Nunito-sans, serif;
         font-size: 1.2em;
         font-weight: bold;
     }
@@ -42,7 +42,6 @@
     > * {
         padding: 5px;
 
-        font-family: Nunito-sans, serif;
         font-size: 1.2em;
         background-color: #672e2b;
     }
@@ -51,7 +50,6 @@
 .error-message {
     color: red;
     text-align: left;
-    font-family: Nunito-sans, serif;
     font-size: 1.2em;
 }
 
@@ -79,6 +77,7 @@ span {
 }
 
 .login {
+    font-family: Avara, serif;
     color: #ffbf24;
     transition: ease-in-out 0.1s;
 

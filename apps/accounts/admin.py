@@ -13,10 +13,11 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'is_staff', 'is_active',)
     list_filter = ('username', 'email', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
+        (None, {'fields': ('username', 'email', 'password', 'avatar')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Account info', {'fields': ('dwarves', 'treasury', 'level', 'experience',
-                                     'perk_points', 'adventuring_perks', 'combat_perks', 'crafting_perks')}),
+        ('Account info', {'fields': ('profile_text', 'warband', 'treasury', 'gold', 'rubies', 'known_recipes',
+                                     'level', 'experience', 'perk_points', 'adventuring_perks', 'combat_perks',
+                                     'crafting_perks')}),
     )
     add_fieldsets = (
         (None, {

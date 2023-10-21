@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'dwarves/barracks.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/dwarves/barracks.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block navbar %}
@@ -10,11 +10,17 @@
 {% endblock %}
 
 {% block content %}
+    {% if not warband %}
     <form action="/barracks/" method="POST">
         {% csrf_token %}
-        {{ form }}
+        {% for form in formset %}
+            <p>{{ form }}</p>
+        {% endfor %}
         <input type="submit" value="Yep, that's about right.">
     </form>
+    {% else %}
+
+    {% endif %}
 {% endblock %}
 
 {% block status-tab %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% for user in profile %}
+        {{ user.username }}
+        {{ user.level }}
+    {% endfor %}
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

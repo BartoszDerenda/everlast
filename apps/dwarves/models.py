@@ -13,9 +13,14 @@ def attributes_trained():
             "endurance_trained": 0, "charisma_trained": 0, "luck_trained": 0, "speed_trained": 0}
 
 
-def attribute_multipliers():
+def attributes_multiplier():
     return {"strength_multiplier": 0, "intelligence_multiplier": 0, "agility_multiplier": 0, "willpower_multiplier": 0,
             "endurance_multiplier": 0, "charisma_multiplier": 0, "luck_multiplier": 0, "speed_multiplier": 0}
+
+
+def attributes_bonus():
+    return {"strength_bonus": 0, "intelligence_bonus": 0, "agility_bonus": 0, "willpower_bonus": 0,
+            "endurance_bonus": 0, "charisma_bonus": 0, "luck_bonus": 0, "speed_bonus": 0}
 
 
 def attributes_total():
@@ -35,28 +40,41 @@ def equipment():
             "pants": None,
             "boots": None,
             "weapon": {
+                "two_hand": None,
                 "main_hand": None,
-                "off_hand": None,
-                "two_hand": None
+                "off_hand": None
             },
-            "artifact": None,
+            "trinket": None,
             }
 
 
 class Dwarf(models.Model):
     name = models.CharField(max_length=32)
     leader = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-    status = models.JSONField(default=default_status)
+    status = models.CharField(max_length=32)
+    status_time = models.DateTimeField(null=True, blank=True)
+
+    pvp_points = models.IntegerField(default=0)
+    battles_fought = models.IntegerField(default=0)
+    battles_won = models.IntegerField(default=0)
 
     equipment = models.JSONField(default=equipment)
 
     attributes_base = models.JSONField(default=attributes_base)
     attributes_trained = models.JSONField(default=attributes_trained)
-    attribute_multipliers = models.JSONField(default=attribute_multipliers)
+    attributes_multiplier = models.JSONField(default=attributes_multiplier)
+    attributes_bonus = models.JSONField(default=attributes_bonus)
     attributes_total = models.JSONField(default=attributes_total)
 
-    physical_armor = models.FloatField(default=0.00)
-    magical_armor = models.FloatField(default=0.00)
+    physical_armor = models.IntegerField(default=0)
+    magical_armor = models.IntegerField(default=0)
+    physical_mitigation = models.FloatField(default=0.00)
+    magical_mitigation = models.FloatField(default=0.00)
 
     ability_cap = models.IntegerField(default=0)
     abilities = models.JSONField(default=dict, blank=True)
+
+    battle_power = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name

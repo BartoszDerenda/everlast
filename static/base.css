@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Avara, Nunito-sans, serif;
+    font-family: Nunito-sans, serif;
     font-weight: normal;
     font-style: normal;
 
@@ -71,9 +71,10 @@ body {
     }
 
     > div > h3 {
+        font-family: Avara, serif;
         font-size: 1.25em;
         color: #ff8800;
-        margin-bottom: 5px
+        margin-bottom: 5px;
     }
 
     > div > a {
@@ -96,7 +97,6 @@ body {
     right: 0;
 
     > #status-tab-top {
-
         display: flex;
         justify-content: space-around;
         margin-bottom: -20px;
@@ -110,6 +110,7 @@ body {
     }
 
     > div > h3 {
+        font-family: Avara, serif;
         font-size: 1.25em;
         color: #ff8800;
         margin-bottom: 5px
@@ -173,6 +174,7 @@ body {
     text-align: center;
 
     > h2 {
+        font-family: Avara, serif;
         color: #ffbf24;
     }
 }

@@ -6,7 +6,7 @@
 <div class="status-tab-segment">
     <h3>Warband</h3>
     {% for dwarf in warband %}
-        <a href="/" class="dwarf-info">
+        <a href="{% url 'details' %}{{ dwarf.id }}" class="dwarf-info">
             <span class="dwarf-name">{{ dwarf.name }}</span>
             <span class="dwarf-status">
                 {% if dwarf.status.0 == "idle" %}

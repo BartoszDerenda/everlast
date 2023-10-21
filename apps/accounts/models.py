@@ -6,7 +6,8 @@ from .managers import CustomUserManager
 
 
 def treasury_template():
-    return {'Iron Ore': 1, 'Iron Ingot': 2, 'Oak Wood': 0, 'Oak Plank': 4, 'Meteorite Ingot': 2,
+    return {'Iron Ore': 999, 'Iron Ingot': 999, 'Oak Wood': 0, 'Oak Plank': 999, 'Meteorite Ingot': 999,
+            'Oakbrew': 999,
 
             'Iron Tasset': 2, 'Iron Helmet': 0, 'Dragonscale Chestplate': 14,
 
@@ -25,13 +26,18 @@ def known_recipes_template():
 
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=32)
-    email = models.EmailField(_('email_address'), unique=True, max_length=254)
+    email = models.EmailField(_('email_address'), unique=True, max_length=255)
+    avatar = models.ImageField(upload_to='static/avatars', default='static/placeholder.png')
+
+    profile_text = models.TextField(max_length=4096, blank=True)
+    last_visited = models.JSONField(default=dict, blank=True)
 
     date_joined = models.DateTimeField(default=timezone.now)
+    is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
 
-    dwarves = models.JSONField(default=list, blank=True)
+    warband = models.JSONField(default=list, blank=True)
     treasury = models.JSONField(default=treasury_template)
     known_recipes = models.JSONField(default=known_recipes_template)
 

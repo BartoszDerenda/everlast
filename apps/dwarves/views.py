@@ -1,32 +1,42 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import formset_factory
 from django.shortcuts import render
 from django.db import transaction
 
-from apps.dwarves.forms import CreateWarbandForm
 from apps.dwarves.models import Dwarf
+from apps.dwarves.forms import CreateWarbandForm
 
 
-@login_required(login_url='/barracks', redirect_field_name=None)
+@login_required(login_url='/mountain', redirect_field_name=None)
 def barracks(request):
+    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
+    context = {'warband': warband}
+
+    WarbandFormSet = formset_factory(CreateWarbandForm, extra=5, max_num=5,
+                                     absolute_max=5, validate_max=5, validate_min=5)
+
     if request.method == 'POST':
-        form = CreateWarbandForm(request.POST)
-        if form.is_valid():
-
+        formset = WarbandFormSet(request.POST)
+        if not formset.is_valid():
+            print('x')
+        if formset.is_valid() and not warband.exists():
             with transaction.atomic():
-                dwarf_name1 = form.cleaned_data['dwarf_name1']
-                leader = request.user
-                dwarf1 = Dwarf.objects.create(name=dwarf_name1, leader=leader)
-                dwarf1.save()
+                for dwarf in formset:
+                    name = dwarf.cleaned_data['name']
+                    leader = request.user
+                    dwarf = Dwarf.objects.create(name=name, leader=leader)
+                    dwarf.save()
+    else:
+        formset = WarbandFormSet()
 
-                dwarf_name2 = form.cleaned_data['dwarf_name2']
-                leader = request.user
-                dwarf2 = Dwarf.objects.create(name=dwarf_name2, leader=leader)
-                dwarf2.save()
+    context.update({'formset': formset})
 
-                dwarf_name3 = form.cleaned_data['dwarf_name3']
-                leader = request.user
-                dwarf3 = Dwarf.objects.create(name=dwarf_name3, leader=leader)
-                dwarf3.save()
+    return render(request, "dwarves/barracks.html", context)
 
-    form = CreateWarbandForm()
-    return render(request, "dwarves/barracks.html", {'form': form})
+
+@login_required(login_url='/mountain', redirect_field_name=None)
+def details(request):
+    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
+    context = {'warband': warband}
+
+    return render(request, "dwarves/details.html", context)

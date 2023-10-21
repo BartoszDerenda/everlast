@@ -10,6 +10,7 @@
 }
 
 h1 {
+    font-family: Avara, serif;
     font-size: 5em;
     color: #ffbf24;
 }
@@ -58,6 +59,7 @@ img {
 }
 
 .signup {
+    font-family: Avara, serif;
     font-size: 2.2em;
     color: #ffc133;
 
@@ -69,6 +71,7 @@ img {
 }
 
 .login {
+    font-family: Avara, serif;
     color: #ffc133;
 
     transition: ease-in-out 0.1s;
