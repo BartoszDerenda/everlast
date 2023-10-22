@@ -15,7 +15,8 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password', 'avatar')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Account info', {'fields': ('profile_text', 'warband', 'treasury', 'gold', 'rubies', 'known_recipes',
+        ('Profile info', {'fields': ('profile_text', 'comments', 'last_visited')}),
+        ('Account info', {'fields': ('warband', 'treasury', 'gold', 'rubies', 'known_recipes',
                                      'level', 'experience', 'perk_points', 'adventuring_perks', 'combat_perks',
                                      'crafting_perks')}),
     )

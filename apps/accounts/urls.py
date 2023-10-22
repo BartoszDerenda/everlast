@@ -3,5 +3,5 @@ from .views import settings, profile
 
 urlpatterns = [
     path('settings/', settings, name="settings"),
-    path('profile/<int:id>', profile, name="profile"),
+    path('profile/<int:user_id>', profile, name="profile"),
 ]

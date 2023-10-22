@@ -31,6 +31,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     profile_text = models.TextField(max_length=4096, blank=True)
     last_visited = models.JSONField(default=dict, blank=True)
+    comments = models.JSONField(default=dict, blank=True)
 
     date_joined = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
