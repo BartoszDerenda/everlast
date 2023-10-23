@@ -30,15 +30,14 @@ class Account(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='static/avatars', default='static/placeholder.png')
 
     profile_text = models.TextField(max_length=4096, blank=True)
-    last_visited = models.JSONField(default=dict, blank=True)
-    comments = models.JSONField(default=dict, blank=True)
+    last_visited = models.JSONField(default=dict, blank=True)   # Stores user IDs and a timestamp.
+    reputation = models.IntegerField(default=0)
 
     date_joined = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
-    warband = models.JSONField(default=list, blank=True)
     treasury = models.JSONField(default=treasury_template)
     known_recipes = models.JSONField(default=known_recipes_template)
 
@@ -61,6 +60,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
         """Does the user have a specific permission?"""
         # Simplest possible answer: Yes, always
         return True
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Account, null=True, on_delete=models.DO_NOTHING)
+    text = models.TextField(max_length=255, blank=True)
+    points = models.IntegerField(default=0)
+    post_date = models.DateTimeField(default=timezone.now)
 
 
 def is_staff(self):

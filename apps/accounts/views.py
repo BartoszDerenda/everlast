@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.db.models import F
+from django.shortcuts import render
 
-from .models import Account
+from .models import Account, Comment
 from .forms import CreateComment
 from apps.dwarves.models import Dwarf
 
@@ -16,33 +17,28 @@ def settings(request):
 @login_required(login_url='/mountain', redirect_field_name=None)
 def profile(request, user_id):
     warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
-    total_battle_power = 0
-    comments = {}
-
+    profile_warband = Dwarf.objects.values('name', 'battle_power', 'battles_fought').filter(leader=user_id)
     profile_info = Account.objects.values('username', 'avatar', 'level',
                                           'profile_text', 'gold', 'rubies',
-                                          'last_visited', 'comments').filter(id=user_id)
-
-    profile_warband = Dwarf.objects.values('name', 'battle_power', 'battles_fought').filter(leader=user_id)
-
+                                          'last_visited').filter(id=user_id)
+    total_battle_power = 0
     for dwarf in profile_warband:
         total_battle_power += dwarf['battle_power']
-
-    for comment in profile_info:
-        comments.update(comment['comments'])
-        for author_id, text in comment['comments'].items():
-            # Potentially super unoptimised - one query per comment on profile? Yikes.
-            author = Account.objects.values('username').get(id=author_id)
-            comments.update({author_id: [author['username'], text]})
 
     if request.method == 'POST':
         create_comment = CreateComment(request.POST)
         if create_comment.is_valid():
             text = create_comment.cleaned_data['text']
-            author = request.user.id
-            Account.objects.update(comments={author: text})
+            points = create_comment.cleaned_data['points']
+            Account.objects.update(reputation=F('reputation') + points)
+            author = request.user
+            comment = Comment.objects.create(author=author, text=text, points=points)
+            comment.save()
     else:
         create_comment = CreateComment()
+
+    # After POST so that the comment is visible on first refresh.
+    comments = Comment.objects.all().filter(author=user_id)
 
     # Add redirect with context (impossible?) when user tries to search with URL for a user with ID that does not exist.
 

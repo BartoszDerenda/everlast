@@ -11,11 +11,9 @@
 
 {% block content %}
     {% if not warband %}
-    <form action="/barracks/" method="POST">
+    <form id="create_warband" action="/barracks/" method="POST">
         {% csrf_token %}
-        {% for form in formset %}
-            <p>{{ form }}</p>
-        {% endfor %}
+        {{ create_warband }}
         <input type="submit" value="Yep, that's about right.">
     </form>
     {% else %}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from apps.accounts.models import Account
+from apps.accounts.models import Account, Comment
 from apps.authentication.forms import CustomUserCreationForm, CustomUserChangeForm
 
 
@@ -15,8 +15,8 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password', 'avatar')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Profile info', {'fields': ('profile_text', 'comments', 'last_visited')}),
-        ('Account info', {'fields': ('warband', 'treasury', 'gold', 'rubies', 'known_recipes',
+        ('Profile info', {'fields': ('profile_text', 'reputation', 'last_visited')}),
+        ('Account info', {'fields': ('treasury', 'gold', 'rubies', 'known_recipes',
                                      'level', 'experience', 'perk_points', 'adventuring_perks', 'combat_perks',
                                      'crafting_perks')}),
     )
@@ -32,3 +32,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(Account, CustomUserAdmin)
+admin.site.register(Comment)

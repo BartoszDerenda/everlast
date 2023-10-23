@@ -1,0 +1,14 @@
+
+#create_warband {
+    > input[type=text] {
+        background-color: #4d1b17;
+    }
+
+    > select {
+        background-color: #4d1b17;
+    }
+
+    > input[type=submit] {
+        background-color: #9b0b00;
+    }
+}
