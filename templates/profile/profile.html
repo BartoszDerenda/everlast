@@ -11,54 +11,67 @@
 
 {% block content %}
     {% for user in profile_info %}
-        <div id="upper-profile">
-            <div id="profile-info">
-                <img class="profile-avatar" src="/{{ user.avatar }}" alt="user-avatar"/>
-                <p class="profile-username">{{ user.username }}</p>
-                <p class="profile-level">Lvl {{ user.level }}</p>
+        <div id="profile">
+            <div id="upper-profile">
+                <div id="profile-info">
+                    <img class="profile-avatar" src="/{{ user.avatar }}" alt="user-avatar"/>
+                    <p class="profile-username">{{ user.username }}</p>
+                    <p class="profile-level">Lvl {{ user.level }}</p>
+                </div>
+                <div id="profile-text">
+                    <span>{{ user.profile_text }}</span>
+                </div>
             </div>
-            <div id="profile-text">
-                {{ user.profile_text }}
-            </div>
-        </div>
-        <div id="lower-profile">
-            <div id="lower-profile-left">
-                <div id="profile-warband">
-                    {% for dwarf in profile_warband %}
-                        <div class="dwarf">
-                            <p>{{ dwarf.name }}</p>
+            <div id="lower-profile">
+                <div id="lower-profile-left">
+                    <div id="profile-warband">
+                        {% for dwarf in profile_warband %}
+                            <div class="dwarf">
+                                <p>{{ dwarf.name }}</p>
+                            </div>
+                        {% endfor %}
+                        <div id="battle-power">
+                            <p>Total battle power:</p>
+                            <p>{{ total_battle_power }}</p>
                         </div>
-                    {% endfor %}
-                    <div>
-                        <p>Total battle power:</p>
-                        <p>{{ total_battle_power }}</p>
+                    </div>
+                    <div id="profile-achievements">
+
                     </div>
                 </div>
-                <div id="profile-achievements">
-
+                <div id="lower-profile-right">
+                    <div id="profile-last-visited">
+                        <p>test</p>
+                    </div>
                 </div>
             </div>
-            <div id="lower-profile-right">
-                <div id="profile-last-visited">
-
+            <div id="comments">
+                <h3 id="comments-h3">Comments:</h3>
+                <div id="comments-box">
+                    {% for comment in comments %}
+                        <div class="comment-author">
+                            <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
+                            {% if comment.author == request.user %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" name="delete_comment" value="Delete">
+                                </form>
+                            {% endif %}
+                        </div>
+                        <div class="comment-text">
+                            <span>{{ comment.text }}</span>
+                        </div>
+                    {% endfor %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ create_comment.text }}
+                        <div id="comment-buttons">
+                            {{ create_comment.points }}
+                            <input type="submit" name="create_comment" value="Post comment!">
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        <h3 id="comments-h3">Comments:</h3>
-        <div id="comments-box">
-            {% for comment in comments %}
-                <div class="comment-author">
-                    <a href="{% url 'profile' user_id=comment.author_id %}">{{ comment.author }}</a>
-                </div>
-                <div class="comment-text">
-                    <span>{{ comment.text }}</span>
-                </div>
-            {% endfor %}
-            <form method="POST">
-                {% csrf_token %}
-                {{ create_comment }}
-                <input type="submit" value="Post comment!">
-            </form>
         </div>
     {% endfor %}
 {% endblock %}

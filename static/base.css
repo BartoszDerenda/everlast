@@ -215,3 +215,18 @@ label {
 .text-align-center {
     text-align: center;
 }
+
+.notification {
+    position: absolute;
+    margin-left: 8px;
+    font-weight: bold;
+    color: #ff1300;
+    animation: wiggle 1.5s infinite;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    33% { transform: rotate(10deg); }
+    66% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+}

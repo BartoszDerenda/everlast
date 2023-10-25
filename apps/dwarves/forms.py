@@ -2,22 +2,92 @@ from django import forms
 
 
 class CreateWarband(forms.Form):
-    quirk = (
-        ([5, 5, -3], '+5 Strength, +5 Endurance, -3 Speed'),
-        ([-3, 5, 5], '-3 Endurance, +5 Intellect, +5 Willpower'),
-        ([5, -3, 5], '+5 Agility, -3 Strength, +5 Speed')
+    dwarf1_quirk1 = (
+        ('Strong', "strongest"),
+        ('Wise', " wisest"),
+        ('Agile', "most nimble"),
+        ('Hefty', "heftiest")
     )
-    dwarf1_name = forms.CharField(label='Name', max_length=32)
-    dwarf1_quirk = forms.CharField(widget=forms.Select(choices=quirk), label='')
 
-    dwarf2_name = forms.CharField(label='Name', max_length=32)
-    dwarf2_quirk = forms.CharField(widget=forms.Select(choices=quirk), label='')
+    dwarf1_quirk2 = (
+        ('Strong', "out-drinks us all"),
+        ('Wise', "gives us tips"),
+        ('Agile', "steals one of my beers"),
+        ('Charismatic', "sings and flirts")
+    )
 
-    dwarf3_name = forms.CharField(label='Name', max_length=32)
-    dwarf3_quirk = forms.CharField(widget=forms.Select(choices=quirk), label='')
+    dwarf2_quirk1 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
 
-    dwarf4_name = forms.CharField(label='Name', max_length=32)
-    dwarf4_quirk = forms.CharField(widget=forms.Select(choices=quirk), label='')
+    dwarf2_quirk2 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
 
-    dwarf5_name = forms.CharField(label='Name', max_length=32)
-    dwarf5_quirk = forms.CharField(widget=forms.Select(choices=quirk), label='')
+    dwarf3_quirk1 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
+
+    dwarf3_quirk2 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
+
+    dwarf4_quirk1 = (
+        ('Strong', "of Irongrip"),
+        ('Wise', " the Wise"),
+        ('Agile', " the Nimble"),
+        ('Lucky', "that lucky bastard")
+    )
+
+    dwarf4_quirk2 = (
+        ('Strong', "fell into druid's cauldron when they were brewing a magic potion"),
+        ('Wise', "managed to decipher those elven runes when you got trapped in the ruins"),
+        ('Agile', "somehow disarmed that entire gauntlet full of traps all by himself"),
+        ('Lucky', "kept the witch busy with his gossip as we planned our ambush")
+    )
+
+    dwarf5_quirk1 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
+
+    dwarf5_quirk2 = (
+        ('Strong', "He was one of immense girth."),
+        ('Wise', "Although he couldn't keep up on a mountain trekk, he excelled in arcane studies."),
+        ('Agile', "He used to pull mean pranks on his Primus but never got caught."),
+        ('Lucky', "Lucky placeholder.")
+    )
+
+    dwarf1_name = forms.CharField(label='', max_length=32)
+    dwarf1_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf1_quirk1), label='')
+    dwarf1_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf1_quirk2), label='')
+
+    dwarf2_name = forms.CharField(label='', max_length=32)
+    dwarf2_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf2_quirk1), label='')
+    dwarf2_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf2_quirk2), label='')
+
+    dwarf3_name = forms.CharField(label='', max_length=32)
+    dwarf3_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf3_quirk1), label='')
+    dwarf3_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf3_quirk2), label='')
+
+    dwarf4_name = forms.CharField(label='', max_length=32)
+    dwarf4_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf4_quirk1), label='')
+    dwarf4_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf4_quirk2), label='')
+
+    dwarf5_name = forms.CharField(label='', max_length=32)
+    dwarf5_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf5_quirk1), label='')
+    dwarf5_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf5_quirk2), label='')

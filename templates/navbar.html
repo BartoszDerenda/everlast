@@ -2,12 +2,12 @@
 
 <div id="navbar-top">
     <img src="{% static 'placeholder.png' %}" alt="avatar" class="avatar" />
-    <a href="{% url 'profile' user_id=user.id %}">{{ request.user.username | title }}</a>
+    <a href="{% url 'profile' profile_id=user.id %}">{{ request.user.username | title }}</a>
 </div>
 
 <div class="navbar-segment">
     <h3>Den</h3>
-    <a href="{% url 'barracks' %}">Barracks</a>
+    <a href="{% url 'barracks' %}">Barracks {% if not warband %}<span class="notification">!</span>{% else %}{% endif %}</a>
     <a href="{% url 'shrine' %}">Shrine</a>
     <a href="{% url 'training' %}">Training</a>
     <a href="{% url 'treasury' %}">Treasury</a>

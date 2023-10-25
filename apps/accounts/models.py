@@ -63,7 +63,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(Account, null=True, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(Account, related_name='author', null=True, on_delete=models.DO_NOTHING)
+    receiver = models.ForeignKey(Account, related_name='receiver', null=True, on_delete=models.CASCADE)
     text = models.TextField(max_length=255, blank=True)
     points = models.IntegerField(default=0)
     post_date = models.DateTimeField(default=timezone.now)

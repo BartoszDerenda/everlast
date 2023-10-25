@@ -1,14 +1,35 @@
 
 #create_warband {
-    > input[type=text] {
-        background-color: #4d1b17;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    overflow: auto;
+
+    > p {
+        font-size: 1.2em;
     }
 
-    > select {
+    > h2 {
+        font-family: Avara, Nunito-sans, serif;
+        text-align: center;
+        font-size: 2em;
+        color: #ff8800;
+    }
+
+    > p > input[type=text] {
         background-color: #4d1b17;
+        width: 33%;
+        font-size: 1.05em;
+    }
+
+    > p > select {
+        background-color: #4d1b17;
+        max-width: 100%;
+        font-size: 1.05em;
     }
 
     > input[type=submit] {
         background-color: #9b0b00;
+        font-size: 1.3em;
     }
 }

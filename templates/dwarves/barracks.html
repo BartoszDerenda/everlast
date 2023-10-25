@@ -11,11 +11,32 @@
 
 {% block content %}
     {% if not warband %}
-    <form id="create_warband" action="/barracks/" method="POST">
-        {% csrf_token %}
-        {{ create_warband }}
-        <input type="submit" value="Yep, that's about right.">
-    </form>
+        <form id="create_warband" action="/barracks/" method="POST">
+            {% csrf_token %}
+            <h2>Ahh.. your warband.</h2>
+            <p>Your pride and joy. Your most trusted comradery. Each one of you would jump down the many
+                Blackrock's fiery pits, without a second thought, to save one another from peril.
+                You know that because it has happened, plenty of times.</p>
+
+            <!-- Dwarf 1 -->
+            <p>{{ create_warband.dwarf1_name }}, our {{ create_warband.dwarf1_quirk1 }} brother in-arms. After every
+                expedition, he always {{ create_warband.dwarf1_quirk2 }} during our celebrations.</p>
+
+            <!-- Dwarf 2 -->
+            <p>{{ create_warband.dwarf2_name }}{{ create_warband.dwarf2_quirk1 }}{{ create_warband.dwarf2_quirk2 }}</p>
+
+            <!-- Dwarf 3 -->
+            <p>{{ create_warband.dwarf3_name }}{{ create_warband.dwarf3_quirk1 }}{{ create_warband.dwarf3_quirk2 }}</p>
+
+            <!-- Dwarf 4 -->
+            <p>{{ create_warband.dwarf4_name }}, {{ create_warband.dwarf4_quirk1 }}. You will always remember him for
+            that one time, when he {{ create_warband.dwarf4_quirk2 }}.</p>
+
+            <!-- Dwarf 5 -->
+            <p>Finally, {{ create_warband.dwarf5_name }}{{ create_warband.dwarf5_quirk1 }}{{ create_warband.dwarf5_quirk2 }}</p>
+
+            <input type="submit" value="Yep, that's about right.">
+        </form>
     {% else %}
 
     {% endif %}

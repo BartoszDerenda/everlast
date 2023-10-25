@@ -10,78 +10,153 @@
 
 }
 
+#profile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}
+
 #upper-profile {
     display: flex;
     column-gap: 30px;
 
     #profile-info {
-
+        width: 33%;
     }
 
     #profile-text {
         background-color: #731b1b;
         border: #601b17 ridge 7px;
+        width: 66%;
     }
 }
 
 #lower-profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
     #lower-profile-left {
+        width: 35%;
+
+        #profile-warband {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            background-color: #4d1b17;
+            padding: 10px;
+
+            .dwarf {
+                background-color: #9b0b00;
+
+                > p {
+                    color: #ff8800;
+                    font-weight: bold;
+                    padding: 0 10px 0 10px;
+                }
+
+            }
+
+            #battle-power {
+                background-color: #9b0b00;
+                padding: 1px 10px 1px 10px;
+
+            }
+
+        }
 
     }
 
     #lower-profile-right {
+        width: 35%;
 
     }
 }
 
-#comments-h3 {
-    color: #ff8800;
-    font-weight: bold;
-}
+#comments {
 
-#comments-box {
-
-    .comment-author {
-        background-color: #73261e;
-        padding: 10px;
-        > a {
-            color: #f9b917;
-            font-weight: bold;
-        }
+    #comments-h3 {
+        color: #ff8800;
+        font-weight: bold;
     }
 
-    .comment-text {
-        padding: 0 15px 10px 15px;
-        background-color: #8d2d2d;
+    #comments-box {
 
-        white-space: pre-line;
-    }
+        .comment-author {
+            display: flex;
+            justify-content: space-between;
 
-    > form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        > textarea {
-            margin-top: 30px;
-            background-color: #4d1b17;
-
-            resize: none;
-        }
-
-        > input[type=submit] {
-            width: 33%;
-
-            background-color: #9b0b00;
-            margin-top: 15px;
+            background-color: #73261e;
             padding: 10px;
 
-            transition: 0.1s;
+            > a {
+                color: #f9b917;
+                font-weight: bold;
+            }
+
+            > form > input[type=submit] {
+                width: 100px;
+
+                background-color: #9b0b00;
+                transition: 0.1s;
+            }
+
+            > form > input[type=submit]:hover {
+                background-color: #c01709;
+            }
         }
 
-        > input[type=submit]:hover {
-            background-color: #c01709;
+        .comment-text {
+            padding: 0 15px 10px 15px;
+            background-color: #8d2d2d;
+
+            white-space: pre-line;
+        }
+
+        > form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            > textarea {
+                width: 80%;
+                margin-top: 30px;
+                background-color: #4d1b17;
+
+                resize: none;
+            }
+
+            #comment-buttons {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+
+                width: 80%;
+
+                > select {
+                    width: 150px;
+
+                    background-color: #9b0b00;
+                    margin-top: 15px;
+                    padding: 10px;
+
+                }
+
+                > input[type=submit] {
+                    width: 150px;
+
+                    background-color: #9b0b00;
+                    margin-top: 15px;
+                    padding: 10px;
+
+                    transition: 0.1s;
+                }
+
+                > input[type=submit]:hover {
+                    background-color: #c01709;
+                }
+            }
         }
     }
 }

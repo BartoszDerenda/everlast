@@ -1,6 +1,12 @@
+import random
+
 from django.db import models
 
 from apps.accounts.models import Account
+
+
+def initial_attributes():
+    return int(random.randint(10, 15))
 
 
 class Character(models.Model):
@@ -52,14 +58,14 @@ class Dwarf(Character):
     trinket = models.CharField(max_length=64, blank=True, null=True)
 
     # Attributes
-    strength_base = models.IntegerField(default=1)
-    intelligence_base = models.IntegerField(default=1)
-    endurance_base = models.IntegerField(default=1)
-    speed_base = models.IntegerField(default=1)
-    agility_base = models.IntegerField(default=1)
-    willpower_base = models.IntegerField(default=1)
-    charisma_base = models.IntegerField(default=1)
-    luck_base = models.IntegerField(default=1)
+    strength_base = models.IntegerField(default=initial_attributes)
+    intelligence_base = models.IntegerField(default=initial_attributes)
+    endurance_base = models.IntegerField(default=initial_attributes)
+    speed_base = models.IntegerField(default=initial_attributes)
+    agility_base = models.IntegerField(default=initial_attributes)
+    willpower_base = models.IntegerField(default=initial_attributes)
+    charisma_base = models.IntegerField(default=initial_attributes)
+    luck_base = models.IntegerField(default=initial_attributes)
 
     strength_multiplier = models.IntegerField(default=0)
     intelligence_multiplier = models.IntegerField(default=0)
@@ -96,7 +102,7 @@ class Dwarf(Character):
 class Monster(Character):
     name = models.CharField(max_length=64)
     zone = models.CharField(max_length=64, blank=True, null=True)
-    mob_type = models.CharField(max_length=16, default='normal')    # Normal / Boss / idk
+    mob_type = models.CharField(max_length=16, default='normal')  # Normal / Boss / idk
     race = models.CharField(max_length=16, default='monster', null=True, blank=True)
 
     def __str__(self):
