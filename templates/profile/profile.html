@@ -45,12 +45,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- COMMENTS -->
             <div id="comments">
+
+                <!-- All comments -->
                 <h3 id="comments-h3">Comments:</h3>
+                <span>{{ user.reputation }}</span>
                 <div id="comments-box">
                     {% for comment in comments %}
                         <div class="comment-author">
                             <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
+                            <span>{{ comment.post_date }}</span>
+                            <span>{{ comment.points }}</span>
                             {% if comment.author == request.user %}
                                 <form method="POST">
                                     {% csrf_token %}
@@ -62,16 +69,43 @@
                             <span>{{ comment.text }}</span>
                         </div>
                     {% endfor %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ create_comment.text }}
-                        <div id="comment-buttons">
-                            {{ create_comment.points }}
-                            <input type="submit" name="create_comment" value="Post comment!">
-                        </div>
-                    </form>
                 </div>
+
+                <!-- Comment creation form -->
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ create_comment.text }}
+                    <div id="comment-buttons">
+                        {{ create_comment.points }}
+                        <input type="submit" name="create_comment" value="Post comment!">
+                    </div>
+                </form>
+
+                <!-- Your comment -->
+                <div id="your-comment">
+                {% if your_comment %}
+                    <h2>Your comment:</h2>
+                    {% for comment in your_comment %}
+                        <div class="comment-author">
+                            <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
+                            <span>{{ comment.post_date }}</span>
+                            <span>{{ comment.points }}</span>
+                            {% if comment.author == request.user %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" name="delete_comment" value="Delete">
+                                </form>
+                            {% endif %}
+                        </div>
+                        <div class="comment-text">
+                            <span>{{ comment.text }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                </div>
+
             </div>
+
         </div>
     {% endfor %}
 {% endblock %}
