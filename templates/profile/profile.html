@@ -15,10 +15,17 @@
             <div id="upper-profile">
                 <div id="profile-info">
                     <img class="profile-avatar" src="/{{ user.avatar }}" alt="user-avatar"/>
-                    <p class="profile-username">{{ user.username }}</p>
-                    <p class="profile-level">Lvl {{ user.level }}</p>
+                    <div>
+                        <p class="profile-username">{{ user.username }}</p>
+                        <p class="profile-level">Lvl {{ user.level }}</p>
+                    </div>
+                </div>
+                <div id="profile-currencies">
+                    <span><img src="{% static 'images/currency-icons/gold.png' %}" alt="Gold: " /> {{ user.gold }}</span>
+                    <span><img src="{% static 'images/currency-icons/ruby.png' %}" alt="Rubies: "/> {{ user.rubies }}</span>
                 </div>
                 <div id="profile-text">
+                    <p>{{ user.username }}'s slab of text</p>
                     <span>{{ user.profile_text }}</span>
                 </div>
             </div>
@@ -51,13 +58,16 @@
 
                 <!-- All comments -->
                 <h3 id="comments-h3">Comments:</h3>
-                <span>{{ user.reputation }}</span>
+                {% if comments %}
+                <span id="total-reputation">Reputation: {{ user.reputation }}</span>
                 <div id="comments-box">
                     {% for comment in comments %}
-                        <div class="comment-author">
+                        <div class="comment-author {% if comment.points == 1 %} author-positive
+                                                   {% elif comment.points == 0 %} author-neutral
+                                                   {% elif comment.points == -1 %} author-negative
+                                                   {% endif %}">
                             <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
                             <span>{{ comment.post_date }}</span>
-                            <span>{{ comment.points }}</span>
                             {% if comment.author == request.user %}
                                 <form method="POST">
                                     {% csrf_token %}
@@ -65,18 +75,24 @@
                                 </form>
                             {% endif %}
                         </div>
-                        <div class="comment-text">
+                        <div class="comment-text {% if comment.points == 1 %} text-positive
+                                                 {% elif comment.points == 0 %} text-neutral
+                                                 {% elif comment.points == -1 %} text-negative
+                                                 {% endif %}">
                             <span>{{ comment.text }}</span>
                         </div>
                     {% endfor %}
                 </div>
+                {% else %}
+                    <p>This user has no comments.</p>
+                {% endif %}
 
                 <!-- Comment creation form -->
                 <form method="POST">
                     {% csrf_token %}
-                    {{ create_comment.text }}
+                    {{ comment_form.text }}
                     <div id="comment-buttons">
-                        {{ create_comment.points }}
+                        {{ comment_form.points }}
                         <input type="submit" name="create_comment" value="Post comment!">
                     </div>
                 </form>
@@ -86,10 +102,12 @@
                 {% if your_comment %}
                     <h2>Your comment:</h2>
                     {% for comment in your_comment %}
-                        <div class="comment-author">
+                        <div class="comment-author {% if comment.points == 1 %} author-positive
+                                                   {% elif comment.points == 0 %} author-neutral
+                                                   {% elif comment.points == -1 %} author-negative
+                                                   {% endif %}">
                             <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
                             <span>{{ comment.post_date }}</span>
-                            <span>{{ comment.points }}</span>
                             {% if comment.author == request.user %}
                                 <form method="POST">
                                     {% csrf_token %}
@@ -97,7 +115,10 @@
                                 </form>
                             {% endif %}
                         </div>
-                        <div class="comment-text">
+                        <div class="comment-text {% if comment.points == 1 %} text-positive
+                                                 {% elif comment.points == 0 %} text-neutral
+                                                 {% elif comment.points == -1 %} text-negative
+                                                 {% endif %}">
                             <span>{{ comment.text }}</span>
                         </div>
                     {% endfor %}

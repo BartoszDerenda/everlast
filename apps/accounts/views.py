@@ -25,23 +25,33 @@ def profile(request, profile_id):
     for dwarf in profile_warband:
         total_battle_power += dwarf['battle_power']
 
-    create_comment = CreateComment()
+    comment_form = CreateComment()
     author = request.user
     receiver = Account.objects.get(id=profile_id)
+    comment_exists = Comment.objects.filter(author=author, receiver=receiver).exists()
+
+    def create_comment(author, receiver):
+        text = comment_form.cleaned_data['text']
+        points = comment_form.cleaned_data['points']
+        Account.objects.filter(id=receiver.id).update(reputation=F('reputation') + points)
+        comment = Comment.objects.create(author=author, receiver=receiver, text=text, points=points)
+        comment.save()
+
+    def delete_comment(author, receiver):
+        points = Comment.objects.values('points').filter(author=author, receiver=receiver)
+        Account.objects.filter(id=receiver.id).update(reputation=F('reputation') - points)
+        Comment.objects.filter(author=author, receiver=receiver).delete()
 
     if request.method == 'POST':
         if 'create_comment' in request.POST:
-            create_comment = CreateComment(request.POST)
-            if create_comment.is_valid():
-                text = create_comment.cleaned_data['text']
-                points = create_comment.cleaned_data['points']
-                Account.objects.filter(id=receiver.id).update(reputation=F('reputation') + points)
-                comment = Comment.objects.create(author=author, receiver=receiver, text=text, points=points)
-                comment.save()
+            comment_form = CreateComment(request.POST)
+            if comment_form.is_valid() and author != receiver:
+                if comment_exists:
+                    delete_comment(author, receiver)
+                create_comment(author, receiver)
+
         if 'delete_comment' in request.POST:
-            points = Comment.objects.values('points').filter(author=author, receiver=receiver)
-            Account.objects.filter(id=receiver.id).update(reputation=F('reputation') - points)
-            Comment.objects.filter(author=author, receiver=receiver).delete()
+            delete_comment(author, receiver)
 
     # After POST so that the comment is visible on first refresh.
     comments = Comment.objects.all().filter(receiver=profile_id)
@@ -55,6 +65,6 @@ def profile(request, profile_id):
         'profile_warband': profile_warband,
         'total_battle_power': total_battle_power,
         'comments': comments,
-        'create_comment': create_comment,
+        'comment_form': comment_form,
         'your_comment': your_comment
     })
