@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    row-gap: 30px;
+    row-gap: 22px;
 
     #profile-info {
         display: flex;
@@ -33,6 +33,12 @@
         display: flex;
         justify-content: center;
         column-gap: 50px;
+
+        > div {
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+        }
     }
 
     #profile-text {
@@ -91,8 +97,32 @@
     }
 
     #lower-profile-right {
-        width: 35%;
+        display: flex;
+        justify-content: flex-end;
+        width: 45%;
 
+        > #profile-last-visited {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            > .profile-guest {
+                display: flex;
+                column-gap: 15px;
+                height: 125px;
+                background-color: #8d2d2d;
+                padding: 10px;
+
+                > img {
+                    max-width: 100px;
+                }
+
+                > div > a {
+                    color: #f9b917;
+                    font-weight: bold;
+                }
+            }
+        }
     }
 }
 
@@ -153,7 +183,7 @@
         > textarea {
             width: 80%;
             margin-top: 30px;
-            background-color: #4d1b17;
+            background-color: #641a16;
 
             resize: none;
         }

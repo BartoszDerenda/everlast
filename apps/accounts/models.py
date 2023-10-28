@@ -30,7 +30,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='static/avatars', default='static/placeholder.png')
 
     profile_text = models.TextField(max_length=4096, blank=True)
-    last_visited = models.JSONField(default=dict, blank=True)   # Stores user IDs and a timestamp.
     reputation = models.IntegerField(default=0)
 
     date_joined = models.DateTimeField(default=timezone.now)
@@ -67,7 +66,13 @@ class Comment(models.Model):
     receiver = models.ForeignKey(Account, related_name='receiver', null=True, on_delete=models.CASCADE)
     text = models.TextField(max_length=255, blank=True)
     points = models.IntegerField(default=0)
-    post_date = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+
+class Guestbook(models.Model):
+    profile = models.ForeignKey(Account, related_name='profile', null=True, on_delete=models.CASCADE)
+    guest = models.ForeignKey(Account, related_name='guest', null=True, on_delete=models.DO_NOTHING)
+    timestamp = models.DateTimeField(default=timezone.now)
 
 
 def is_staff(self):

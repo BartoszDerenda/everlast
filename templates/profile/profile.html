@@ -12,7 +12,9 @@
 {% block content %}
     {% for user in profile_info %}
         <div id="profile">
+
             <div id="upper-profile">
+                <!-- Avatar, username, level -->
                 <div id="profile-info">
                     <img class="profile-avatar" src="/{{ user.avatar }}" alt="user-avatar"/>
                     <div>
@@ -20,18 +22,23 @@
                         <p class="profile-level">Lvl {{ user.level }}</p>
                     </div>
                 </div>
+                <!-- Gold and rubies -->
                 <div id="profile-currencies">
-                    <span><img src="{% static 'images/currency-icons/gold.png' %}" alt="Gold: " /> {{ user.gold }}</span>
-                    <span><img src="{% static 'images/currency-icons/ruby.png' %}" alt="Rubies: "/> {{ user.rubies }}</span>
+                    <div><img src="{% static 'images/currency-icons/gold.png' %}" alt="Gold: " /> <span>{{ user.gold }}</span></div>
+                    <div><img src="{% static 'images/currency-icons/ruby.png' %}" alt="Rubies: "/> <span>{{ user.rubies }}</span></div>
                 </div>
+                <!-- Profile text -->
                 <div id="profile-text">
                     <p>{{ user.username }}'s slab of text</p>
                     <span>{{ user.profile_text }}</span>
                 </div>
             </div>
+
             <div id="lower-profile">
                 <div id="lower-profile-left">
+                    <!-- Warband -->
                     <div id="profile-warband">
+                        <h3>Warband</h3>
                         {% for dwarf in profile_warband %}
                             <div class="dwarf">
                                 <p>{{ dwarf.name }}</p>
@@ -42,13 +49,24 @@
                             <p>{{ total_battle_power }}</p>
                         </div>
                     </div>
+                    <!-- Achievements -->
                     <div id="profile-achievements">
 
                     </div>
                 </div>
                 <div id="lower-profile-right">
+                    <!-- Last visits -->
                     <div id="profile-last-visited">
-                        <p>test</p>
+                        <h3>Last visited by:</h3>
+                        {% for entry in guestbook %}
+                            <div class="profile-guest">
+                                <img class="profile-avatar" src="/{{ entry.guest.avatar }}" alt="user-avatar"/>
+                                <div>
+                                    <a href="{% url 'profile' profile_id=entry.guest.id %}">{{ entry.guest }}</a>
+                                    <p>{{ entry.timestamp }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -67,7 +85,7 @@
                                                    {% elif comment.points == -1 %} author-negative
                                                    {% endif %}">
                             <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
-                            <span>{{ comment.post_date }}</span>
+                            <span>{{ comment.timestamp }}</span>
                             {% if comment.author == request.user %}
                                 <form method="POST">
                                     {% csrf_token %}
@@ -107,7 +125,7 @@
                                                    {% elif comment.points == -1 %} author-negative
                                                    {% endif %}">
                             <a href="{% url 'profile' profile_id=comment.author_id %}">{{ comment.author }}</a>
-                            <span>{{ comment.post_date }}</span>
+                            <span>{{ comment.timestamp }}</span>
                             {% if comment.author == request.user %}
                                 <form method="POST">
                                     {% csrf_token %}
