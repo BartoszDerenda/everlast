@@ -1,3 +1,5 @@
+@import url('/static/palette.css');
+
 * {
     box-sizing: border-box;
     font-family: Nunito-sans, serif;
@@ -44,7 +46,7 @@ body {
     height: 100vh;
     padding: 15px;
 
-    background-color: rgba(59, 27, 25, 80%);
+    background-color: var(--true-background);
 
     @media (max-width: 1500px) {
         width: 20vw;
@@ -53,7 +55,7 @@ body {
 
 #navbar {
     display: flex;
-    border-right: ridge 2px #ffbf24;
+    border-right: ridge 2px var(--gold);
     left: 0;
 
     > #navbar-top {
@@ -73,7 +75,7 @@ body {
     > div > h3 {
         font-family: Avara, serif;
         font-size: 1.25em;
-        color: #ff8800;
+        color: var(--orange);
         margin-bottom: 5px;
     }
 
@@ -81,19 +83,19 @@ body {
         font-size: 1.05em;
         font-family: Nunito-sans, serif;
         font-weight: bold;
-        color: #ffbf24;
+        color: var(--gold);
         margin-bottom: 3px;
         padding: 3px 0 3px 2px;
     }
 
     > .navbar-segment > a:hover {
-        background-color: #702E25FF;
+        background-color: var(--red-background);
     }
 }
 
 #status-tab {
     display: flex;
-    border-left: ridge 2px #ffbf24;
+    border-left: ridge 2px var(--gold);
     right: 0;
 
     > #status-tab-top {
@@ -112,7 +114,7 @@ body {
     > div > h3 {
         font-family: Avara, serif;
         font-size: 1.25em;
-        color: #ff8800;
+        color: var(--orange);
         margin-bottom: 5px
     }
 
@@ -120,7 +122,7 @@ body {
         font-size: 1.05em;
         font-family: Nunito-sans, serif;
         font-weight: bold;
-        color: #ffbf24;
+        color: var(--gold);
         margin-bottom: 3px;
         padding: 3px 0 3px 2px;
     }
@@ -128,7 +130,7 @@ body {
     > .status-tab-segment > .dwarf-info, .crafting-info {
         display: flex;
         flex-direction: column;
-        background-color: #702E25FF;
+        background-color: var(--darkred-background);
         padding: 8px 0 10px 10px;
         margin-bottom: 10px;
 
@@ -147,12 +149,12 @@ body {
             padding-top: 4px;
 
             font-size: 0.9em;
-            color: #aaff22;
+            color: var(--bright-green);
         }
     }
 
     > .status-tab-segment > .dwarf-info:hover, .crafting-info:hover {
-        background-color: #8c2d24;
+        background-color: var(--red-hover);
     }
 }
 
@@ -164,8 +166,8 @@ body {
     padding: 10vh 5vw 10vh 5vw;
     overflow: auto;
 
-    background-color: rgba(59, 27, 25, 80%);
-    border: ridge 2px #ffbf24;
+    background-color: var(--true-background);
+    border: ridge 2px var(--gold);
     border-top: none;
     border-bottom: none;
 }
@@ -175,17 +177,17 @@ body {
 
     > h2 {
         font-family: Avara, serif;
-        color: #ffbf24;
+        color: var(--gold);
     }
-}
-
-.avatar {
-    max-width: 33%;
 }
 
 .center {
     display: flex;
     justify-content: center;
+}
+
+.avatar {
+    max-width: 100px;
 }
 
 input[type=submit] {
@@ -204,23 +206,11 @@ label {
     cursor: pointer;
 }
 
-.text-align-left {
-    text-align: left;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-.text-align-center {
-    text-align: center;
-}
-
 .notification {
     position: absolute;
     margin-left: 8px;
     font-weight: bold;
-    color: #ff1300;
+    color: var(--red-notification);
     animation: wiggle 1.5s infinite;
 }
 

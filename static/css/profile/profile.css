@@ -1,32 +1,40 @@
+@import url('/static/palette.css');
+
+/* Main box */
 #profile {
     display: flex;
     flex-direction: column;
     row-gap: 40px;
 }
 
+
+/* Profile avatar, username, level, currencies, slab of text */
+
 #upper-profile {
     display: flex;
     flex-direction: column;
     justify-content: center;
     row-gap: 22px;
+}
 
     #profile-info {
         display: flex;
         flex-direction: row;
         justify-content: center;
         column-gap: 50px;
+    }
 
-        .profile-avatar {
-            max-width: 100px;
-        }
+    .avatar {
+        max-width: 100px;
+    }
 
-        .profile-username {
+    .username {
+        color: var(--gold);
+        font-weight: bold;
+    }
 
-        }
-
-        .profile-level {
-            width: 100%;
-        }
+    .level {
+        width: 100%;
     }
 
     #profile-currencies {
@@ -34,7 +42,7 @@
         justify-content: center;
         column-gap: 50px;
 
-        > div {
+         > div {
             display: flex;
             align-items: center;
             column-gap: 5px;
@@ -42,14 +50,14 @@
     }
 
     #profile-text {
-        background-color: #731b1b;
-        border: #601b17 ridge 7px;
+        background-color: var(--darkred-background);
+        border: var(--blackred-background) ridge 7px;
         width: 100%;
         padding: 0 20px 20px 20px;
 
         > p {
             text-align: center;
-            color: #948686;
+            color: var(--gray-tooltip);
             font-style: italic;
         }
 
@@ -57,45 +65,44 @@
             white-space: pre-line;
         }
     }
-}
+
+
+/* Profile warband, guestbook */
 
 #lower-profile {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
+    /* Warband */
     #lower-profile-left {
         width: 35%;
 
         #profile-warband {
             display: flex;
             flex-direction: column;
+            background-color: var(--blackred-background);
             row-gap: 10px;
-
-            background-color: #4d1b17;
             padding: 10px;
 
             .dwarf {
-                background-color: #9b0b00;
+                background-color: var(--darkred-background);
 
                 > p {
-                    color: #ff8800;
+                    color: var(--orange);
                     font-weight: bold;
                     padding: 0 10px 0 10px;
                 }
-
             }
 
             #battle-power {
-                background-color: #9b0b00;
+                background-color: var(--red-background);
                 padding: 1px 10px 1px 10px;
-
             }
-
         }
-
     }
 
+    /* Guestbook */
     #lower-profile-right {
         display: flex;
         justify-content: flex-end;
@@ -106,19 +113,22 @@
             flex-direction: column;
             row-gap: 10px;
 
+            /* Individual guests */
             > .profile-guest {
                 display: flex;
                 column-gap: 15px;
                 height: 125px;
-                background-color: #8d2d2d;
+                background-color: var(--red-background);
                 padding: 10px;
 
+                /* Guest avatars */
                 > img {
                     max-width: 100px;
                 }
 
+                /* Guest usernames */
                 > div > a {
-                    color: #f9b917;
+                    color: var(--gold);
                     font-weight: bold;
                 }
             }
@@ -126,12 +136,16 @@
     }
 }
 
+
+/* Comment section */
+
 #comments {
-    background-color: #4d1b17;
+    background-color: var(--blackred-background);
+    border: var(--gold) ridge 2px;
     padding: 0 30px 30px 30px;
 
     #comments-h3 {
-        color: #ff8800;
+        color: var(--orange);
         font-weight: bold;
     }
 
@@ -142,7 +156,7 @@
     #comments-box {
         max-height: 500px;
         margin-top: 20px;
-        border: #ff8800 ridge 3px;
+        border: var(--orange) ridge 3px;
         overflow: scroll;
     }
 
@@ -153,19 +167,19 @@
         padding: 10px;
 
         > a {
-            color: #f9b917;
+            color: var(--gold);
             font-weight: bold;
         }
 
         > form > input[type=submit] {
             width: 100px;
 
-            background-color: #9b0b00;
+            background-color: var(--red-background);
             transition: 0.1s;
         }
 
         > form > input[type=submit]:hover {
-            background-color: #c01709;
+            background-color: var(--red-hover);
         }
     }
 
@@ -183,7 +197,7 @@
         > textarea {
             width: 80%;
             margin-top: 30px;
-            background-color: #641a16;
+            background-color: var(--darkred-background);
 
             resize: none;
         }
@@ -198,7 +212,7 @@
             > select {
                 width: 150px;
 
-                background-color: #9b0b00;
+                background-color: var(--red-background);
                 margin-top: 15px;
                 padding: 10px;
 
@@ -207,7 +221,7 @@
             > input[type=submit] {
                 width: 150px;
 
-                background-color: #9b0b00;
+                background-color: var(--red-background);
                 margin-top: 15px;
                 padding: 10px;
 
@@ -215,7 +229,7 @@
             }
 
             > input[type=submit]:hover {
-                background-color: #c01709;
+                background-color: var(--red-hover);
             }
         }
     }

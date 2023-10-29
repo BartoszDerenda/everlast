@@ -1,0 +1,14 @@
+:root {
+    --gold: #ffbf24;
+    --orange: #ff8800;
+    --bright-green: #aaff22;
+
+    --true-background: rgba(54, 23, 21, 0.8);
+    --blackred-background: #601b17;
+    --darkred-background: #801e1e;
+    --red-background: #9b0b00;
+
+    --red-hover: #c01709;
+    --gray-tooltip: #a49393;
+    --red-notification: #ff1300;
+}

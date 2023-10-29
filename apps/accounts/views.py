@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.db.models import F, Min
+from django.db.models import F
 from django.shortcuts import render
 
 from .models import Account, Comment, Guestbook
@@ -26,7 +26,7 @@ def profile(request, profile_id):
 
     # Converting timestamps into time passed.
     # I know this doesn't look good, pls no bully
-    guestbook = Guestbook.objects.all().filter(profile=profile_id)
+    guestbook = Guestbook.objects.all().filter(profile=profile_id).order_by('-id')  # Reverse chronological order
     for guest in guestbook:
         now = timezone.now()
         delta = now - guest.timestamp
@@ -105,6 +105,7 @@ def profile(request, profile_id):
 
     # Add redirect with context (impossible?) when user tries to search with URL for a user with ID that does not exist.
 
+    print(guestbook)
     return render(request, "profile/profile.html", {
         'warband': warband,
         'profile_info': profile_info,
