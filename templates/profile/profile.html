@@ -5,6 +5,20 @@
     <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" type="text/css"/>
 {% endblock %}
 
+{% block scripts %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const text_preview = document.getElementById('text-preview');
+        const show_text_btn = document.getElementById('display-profile-text');
+
+        show_text_btn.addEventListener('click', function() {
+            text_preview.setAttribute('id', 'text-full');
+            show_text_btn.setAttribute('id', 'hide');
+        })
+    })
+    </script>
+{% endblock %}
+
 {% block navbar %}
     {% include 'navbar.html' %}
 {% endblock %}
@@ -28,9 +42,10 @@
                     <div><img src="{% static 'images/currency-icons/ruby.png' %}" alt="Rubies: "/> <span>{{ user.rubies }}</span></div>
                 </div>
                 <!-- Profile text -->
-                <div id="profile-text">
+                <div id="profile-text-box">
                     <p>{{ user.username }}'s slab of text</p>
-                    <span>{{ user.profile_text }}</span>
+                    <span id="text-preview">{{ user.profile_text }}</span>
+                    <div id="display-profile-text">Show more</div>
                 </div>
             </div>
 
