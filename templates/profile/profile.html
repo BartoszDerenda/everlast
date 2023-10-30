@@ -11,10 +11,28 @@
         const text_preview = document.getElementById('text-preview');
         const show_text_btn = document.getElementById('display-profile-text');
 
-        show_text_btn.addEventListener('click', function() {
-            text_preview.setAttribute('id', 'text-full');
+        // Checks if HTML element contains at least 15 lines or 200 symbols.
+        function checkLinesAndLength(text) {
+            if (!text) {
+                return false;
+            } else {
+                const string = text.textContent || text.innerText;
+                const lines = string.split('\n').length;
+                const symbols = string.length;
+
+                return lines > 15 || symbols > 200;
+            }
+        }
+
+        // If user's slab of text is long enough, generate the "Show more" button.
+        if (checkLinesAndLength(text_preview)) {
+            show_text_btn.addEventListener('click', function () {
+                text_preview.setAttribute('id', 'text-full');
+                show_text_btn.setAttribute('id', 'hide');
+            })
+        } else {
             show_text_btn.setAttribute('id', 'hide');
-        })
+        }
     })
     </script>
 {% endblock %}

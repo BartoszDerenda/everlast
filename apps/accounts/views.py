@@ -105,7 +105,6 @@ def profile(request, profile_id):
 
     # Add redirect with context (impossible?) when user tries to search with URL for a user with ID that does not exist.
 
-    print(guestbook)
     return render(request, "profile/profile.html", {
         'warband': warband,
         'profile_info': profile_info,
