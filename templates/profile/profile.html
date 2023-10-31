@@ -74,7 +74,7 @@
                         <h3>Warband</h3>
                         {% for dwarf in profile_warband %}
                             <div class="dwarf">
-                                <p>{{ dwarf.name }}</p>
+                                <a href="{% url 'dwarf' dwarf_id=dwarf.id %}">{{ dwarf.name }}</a>
                             </div>
                         {% endfor %}
                         <div id="battle-power">

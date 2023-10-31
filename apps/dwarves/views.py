@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
-from django.forms import formset_factory
 from django.shortcuts import render
-from django.db import transaction
 
 from apps.dwarves.models import Dwarf
 from apps.dwarves.forms import CreateWarband
@@ -38,7 +36,8 @@ def barracks(request):
             leader = request.user
             dwarf_names = [dwarf1_name, dwarf2_name, dwarf3_name, dwarf4_name, dwarf5_name]
             dwarf_quirks = [(dwarf1_quirk1, dwarf1_quirk2), (dwarf2_quirk1, dwarf2_quirk2), (dwarf3_quirk1,
-                            dwarf3_quirk2), (dwarf4_quirk1, dwarf4_quirk2), (dwarf5_quirk1, dwarf5_quirk2)]
+                                                                                             dwarf3_quirk2),
+                            (dwarf4_quirk1, dwarf4_quirk2), (dwarf5_quirk1, dwarf5_quirk2)]
 
             new_warband = Dwarf.objects.bulk_create([
                 Dwarf(name=dwarf1_name, leader=leader),
@@ -56,9 +55,10 @@ def barracks(request):
                                                                               endurance_base=F('endurance_base') + 5,
                                                                               speed_base=F('speed_base') - 3)
                     elif quirk == 'Wise':
-                        Dwarf.objects.filter(id=new_warband[dwarf].id).update(intelligence_base=F('intelligence_base') + 5,
-                                                                              willpower_base=F('willpower_base') + 7,
-                                                                              endurance_base=F('endurance_base') - 3)
+                        Dwarf.objects.filter(id=new_warband[dwarf].id).update(
+                            intelligence_base=F('intelligence_base') + 5,
+                            willpower_base=F('willpower_base') + 7,
+                            endurance_base=F('endurance_base') - 3)
                     elif quirk == 'Agile':
                         Dwarf.objects.filter(id=new_warband[dwarf].id).update(speed_base=F('speed_base') + 5,
                                                                               agility_base=F('agility_base') + 7,
@@ -83,9 +83,11 @@ def barracks(request):
 
 
 @login_required(login_url='/mountain', redirect_field_name=None)
-def details(request):
+def dwarf(request, dwarf_id):
     warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
+    dwarf = Dwarf.objects.all().filter(id=dwarf_id)
 
-    return render(request, "dwarves/details.html", {
-        'warband': warband
+    return render(request, "dwarves/dwarf.html", {
+        'warband': warband,
+        'dwarf': dwarf
     })

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/dwarves/dwarf.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% for dwarf in dwarf %}
+
+        <div id="card-info">
+            <div>
+                <h3 class="dwarf-name">{{ dwarf.name }}</h3>
+                {% if dwarf.title %}
+                <h4 class="dwarf-title">{{ dwarf.title }}</h4>
+                {% endif %}
+            </div>
+            <img class='dwarf-variant' src="{% static 'images/dwarf-variants/dwarf1.png' %}" alt="dwarf" />
+        </div>
+
+        <div id="attributes">
+            <h3>Attributes</h3>
+            <table>
+                <tr id="upper-rim">
+                    <td></td>
+                    <td>Base</td>
+                    <td>Multiplier</td>
+                    <td>Bonus</td>
+                    <td>Total:</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Strength</td>
+                    <td>{{ dwarf.strength_base }}</td>
+                    <td>{{ dwarf.strength_multiplier }}</td>
+                    <td>{{ dwarf.strength_bonus }}</td>
+                    <td>{{ dwarf.strength_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Intelligence</td>
+                    <td>{{ dwarf.intelligence_base }}</td>
+                    <td>{{ dwarf.intelligence_multiplier }}</td>
+                    <td>{{ dwarf.intelligence_bonus }}</td>
+                    <td>{{ dwarf.intelligence_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Endurance</td>
+                    <td>{{ dwarf.endurance_base }}</td>
+                    <td>{{ dwarf.endurance_multiplier }}</td>
+                    <td>{{ dwarf.endurance_bonus }}</td>
+                    <td>{{ dwarf.endurance_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Speed</td>
+                    <td>{{ dwarf.speed_base }}</td>
+                    <td>{{ dwarf.speed_multiplier }}</td>
+                    <td>{{ dwarf.speed_bonus }}</td>
+                    <td>{{ dwarf.speed_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Agility</td>
+                    <td>{{ dwarf.agility_base }}</td>
+                    <td>{{ dwarf.agility_multiplier }}</td>
+                    <td>{{ dwarf.agility_bonus }}</td>
+                    <td>{{ dwarf.agility_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Willpower</td>
+                    <td>{{ dwarf.willpower_base }}</td>
+                    <td>{{ dwarf.willpower_multiplier }}</td>
+                    <td>{{ dwarf.willpower_bonus }}</td>
+                    <td>{{ dwarf.willpower_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Charisma</td>
+                    <td>{{ dwarf.charisma_base }}</td>
+                    <td>{{ dwarf.charisma_multiplier }}</td>
+                    <td>{{ dwarf.charisma_bonus }}</td>
+                    <td>{{ dwarf.charisma_total }}</td>
+                </tr>
+                <tr class="attribute-row">
+                    <td>Luck</td>
+                    <td>{{ dwarf.luck_base }}</td>
+                    <td>{{ dwarf.luck_multiplier }}</td>
+                    <td>{{ dwarf.luck_bonus }}</td>
+                    <td>{{ dwarf.luck_total }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="equipment">
+            <h3>Equipment</h3>
+            <table>
+
+            </table>
+        </div>
+
+    {% endfor %}
+{% endblock %}
+
+{% block status-tab %}
+    {% include 'status-tab.html' %}
+{% endblock %}

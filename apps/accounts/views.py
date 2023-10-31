@@ -19,7 +19,7 @@ def settings(request):
 def profile(request, profile_id):
     # Raw variables
     warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
-    profile_warband = Dwarf.objects.values('name', 'battle_power', 'battles_fought').filter(leader=profile_id)
+    profile_warband = Dwarf.objects.values('id', 'name', 'battle_power', 'battles_fought').filter(leader=profile_id)
     profile_info = Account.objects.values('username', 'avatar', 'level',
                                           'profile_text', 'gold', 'rubies',
                                           'reputation').filter(id=profile_id)

@@ -1,0 +1,69 @@
+@import url('/static/palette.css');
+
+#card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > div {
+        text-align: center;
+    }
+
+    .dwarf-name {
+        font-size: 1.5em;
+        font-family: Avara, serif;
+        color: var(--orange);
+    }
+
+    .dwarf-title {
+        font-size: 1.2em;
+        font-family: Avara, serif;
+        color: var(--gold);
+    }
+
+    .dwarf-variant {
+        width: clamp(150px, 33%, 50%)
+    }
+
+}
+
+#attributes {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blackred-background);
+    border: var(--gold) ridge 1px;
+    padding: 10px;
+
+    > h3 {
+        font-size: 1.2em;
+        font-family: Avara, serif;
+        color: var(--gold);
+    }
+
+    > table {
+        background-color: var(--darkred-background);
+        border: var(--gold) ridge 1px;
+        padding: 5px;
+
+        > * {
+            font-size: 1.1em;
+            font-family: Nunito-sans, serif;
+        }
+
+        & td {
+            background-color: var(--red-background);
+            padding: 6px;
+            border: var(--blackred-background) ridge 1px;
+        }
+
+        #upper-rim > td {
+            background-color: var(--blackred-background);
+            color: var(--gold);
+        }
+
+        .attribute-row:hover td {
+            border: var(--gold) ridge 1px;
+        }
+    }
+}

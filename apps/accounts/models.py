@@ -27,7 +27,7 @@ def known_recipes_template():
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=32)
     email = models.EmailField(_('email_address'), unique=True, max_length=255)
-    avatar = models.ImageField(upload_to='static/avatars', default='static/placeholder.png')
+    avatar = models.ImageField(upload_to='static/avatars', default='static/avatars/placeholder.png')
 
     profile_text = models.TextField(max_length=4096, blank=True)
     reputation = models.IntegerField(default=0)

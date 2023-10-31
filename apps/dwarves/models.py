@@ -29,6 +29,9 @@ class Character(models.Model):
     # List of abilities
     abilities = models.JSONField(default=dict, blank=True)
 
+    # Battle power
+    battle_power = models.IntegerField(default=0)
+
     class Meta:
         abstract = True
 
@@ -36,8 +39,9 @@ class Character(models.Model):
 class Dwarf(Character):
     # Basic info
     name = models.CharField(max_length=32)
+    title = models.CharField(max_length=32, null=True, blank=True)
     leader = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-    status = models.CharField(max_length=32)
+    status = models.CharField(max_length=32, null=True, blank=True)
     status_time = models.DateTimeField(null=True, blank=True)
 
     # Battles' history
@@ -67,14 +71,14 @@ class Dwarf(Character):
     charisma_base = models.IntegerField(default=initial_attributes)
     luck_base = models.IntegerField(default=initial_attributes)
 
-    strength_multiplier = models.IntegerField(default=0)
-    intelligence_multiplier = models.IntegerField(default=0)
-    endurance_multiplier = models.IntegerField(default=0)
-    speed_multiplier = models.IntegerField(default=0)
-    agility_multiplier = models.IntegerField(default=0)
-    willpower_multiplier = models.IntegerField(default=0)
-    charisma_multiplier = models.IntegerField(default=0)
-    luck_multiplier = models.IntegerField(default=0)
+    strength_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    intelligence_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    endurance_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    speed_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    agility_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    willpower_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    charisma_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    luck_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
 
     strength_bonus = models.IntegerField(default=0)
     intelligence_bonus = models.IntegerField(default=0)
@@ -85,9 +89,12 @@ class Dwarf(Character):
     charisma_bonus = models.IntegerField(default=0)
     luck_bonus = models.IntegerField(default=0)
 
-    # Abilities and BP
+    # Ability cap
     ability_cap = models.IntegerField(default=0)
-    battle_power = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Dwarf"
+        verbose_name_plural = "Dwarves"
 
     def __str__(self):
         return self.name
@@ -104,6 +111,10 @@ class Monster(Character):
     zone = models.CharField(max_length=64, blank=True, null=True)
     mob_type = models.CharField(max_length=16, default='normal')  # Normal / Boss / idk
     race = models.CharField(max_length=16, default='monster', null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Monster"
+        verbose_name_plural = "Monsters"
 
     def __str__(self):
         return self.name

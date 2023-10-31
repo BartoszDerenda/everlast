@@ -112,11 +112,11 @@
 
             .dwarf {
                 background-color: var(--darkred-background);
+                padding: 10px 10px 10px 10px;
 
-                > p {
+                > a {
                     color: var(--orange);
                     font-weight: bold;
-                    padding: 0 10px 0 10px;
                 }
             }
 
