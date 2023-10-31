@@ -8,6 +8,7 @@ from apps.accounts.models import Account
 
 @login_required(login_url='/mountain', redirect_field_name=None)
 def treasury(request):
+    warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
     treasury_list = Account.objects.filter(id=request.user.id).values_list('treasury', flat=True).first()
     owned_items = {key: val for key, val in treasury_list.items()
                    if val != 0}
@@ -40,7 +41,6 @@ def treasury(request):
     item_type_list_generator(runes_list, owned_runes)
     item_type_list_generator(recipes_list, owned_recipes)
 
-    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
     return render(request, "../templates/items/treasury.html", {
         'warband': warband,
         'owned_materials': owned_materials,

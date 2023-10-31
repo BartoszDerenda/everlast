@@ -4,11 +4,12 @@ from django.shortcuts import render
 
 from apps.dwarves.models import Dwarf
 from apps.dwarves.forms import CreateWarband
+from apps.items.models import Armor
 
 
 @login_required(login_url='/mountain', redirect_field_name=None)
 def barracks(request):
-    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
+    warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
 
     if request.method == 'POST':
         create_warband = CreateWarband(request.POST)
@@ -84,10 +85,90 @@ def barracks(request):
 
 @login_required(login_url='/mountain', redirect_field_name=None)
 def dwarf(request, dwarf_id):
-    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
-    dwarf = Dwarf.objects.all().filter(id=dwarf_id)
+    warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
+    dwarf = Dwarf.objects.filter(id=dwarf_id).all()
+
+    def unpacking_equipment(query):
+        for item in query:
+            for slot, name in item.items():
+                if name is None:
+                    return False
+                return name
+
+    # Equipment
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('head')
+    if unpacking_equipment(equipment_piece):
+        head = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        head = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('shoulders')
+    if unpacking_equipment(equipment_piece):
+        shoulders = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        shoulders = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('chest')
+    if unpacking_equipment(equipment_piece):
+        chest = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        chest = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('gloves')
+    if unpacking_equipment(equipment_piece):
+        gloves = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        gloves = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('pants')
+    if unpacking_equipment(equipment_piece):
+        pants = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        pants = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('boots')
+    if unpacking_equipment(equipment_piece):
+        boots = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        boots = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('trinket')
+    if unpacking_equipment(equipment_piece):
+        trinket = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        trinket = "No armor."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('two_hand')
+    if unpacking_equipment(equipment_piece):
+        two_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        two_hand = "No weapon."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('main_hand')
+    if unpacking_equipment(equipment_piece):
+        main_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        main_hand = "No weapon."
+
+    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('off_hand')
+    if unpacking_equipment(equipment_piece):
+        off_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
+    else:
+        off_hand = "No weapon."
 
     return render(request, "dwarves/dwarf.html", {
         'warband': warband,
-        'dwarf': dwarf
+        'dwarf': dwarf,
+
+        'head': head,
+        'shoulders': shoulders,
+        'chest': chest,
+        'gloves': gloves,
+        'pants': pants,
+        'boots': boots,
+        'trinket': trinket,
+
+        'two_hand': two_hand,
+        'main_hand': main_hand,
+        'off_hand': off_hand
     })

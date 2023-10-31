@@ -15,7 +15,7 @@ def training(request):
             attribute = form.cleaned_data['attribute']
             method = form.cleaned_data['method']
 
-    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
+    warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
 
     form = TrainingForm()
 

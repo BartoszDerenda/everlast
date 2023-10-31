@@ -18,11 +18,11 @@ def settings(request):
 @login_required(login_url='/mountain', redirect_field_name=None)
 def profile(request, profile_id):
     # Raw variables
-    warband = Dwarf.objects.values('id', 'name', 'status').filter(leader=request.user)
-    profile_warband = Dwarf.objects.values('id', 'name', 'battle_power', 'battles_fought').filter(leader=profile_id)
-    profile_info = Account.objects.values('username', 'avatar', 'level',
-                                          'profile_text', 'gold', 'rubies',
-                                          'reputation').filter(id=profile_id)
+    warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
+    profile_warband = Dwarf.objects.filter(leader=profile_id).values('id', 'name', 'battle_power', 'battles_fought')
+    profile_info = Account.objects.filter(id=profile_id).values('username', 'avatar', 'level',
+                                                                'profile_text', 'gold', 'rubies',
+                                                                'reputation')
 
     # Converting timestamps into time passed.
     # I know this doesn't look good, pls no bully
@@ -76,7 +76,7 @@ def profile(request, profile_id):
         comment.save()
 
     def delete_comment(author, receiver):
-        points = Comment.objects.values('points').filter(author=author, receiver=receiver)
+        points = Comment.objects.filter(author=author, receiver=receiver).values('points')
         Account.objects.filter(id=receiver.id).update(reputation=F('reputation') - points)
         Comment.objects.filter(author=author, receiver=receiver).delete()
 
@@ -92,8 +92,8 @@ def profile(request, profile_id):
             delete_comment(author, receiver)
 
     # After POST so that the comment is visible on first refresh.
-    comments = Comment.objects.all().filter(receiver=profile_id)
-    your_comment = Comment.objects.all().filter(receiver=receiver, author=request.user)
+    comments = Comment.objects.filter(receiver=profile_id).all()
+    your_comment = Comment.objects.filter(receiver=receiver, author=request.user).all()
 
     # Save visit, delete oldest if above limit
     if author != receiver:
