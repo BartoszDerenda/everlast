@@ -11,7 +11,7 @@
 
 {% block content %}
     {% for dwarf in dwarf %}
-
+    <div id="dwarf">
         <div id="card-info">
             <div>
                 <h3 class="dwarf-name">{{ dwarf.name }}</h3>
@@ -94,20 +94,99 @@
         <div id="equipment">
             <h3>Equipment</h3>
             <div id="equipment-box">
-                <div id="head">
-                    <div class="item-icon">
-
-                    </div>
-                    <div class="item-name">
-
+            {% for slot, item in equipment.items %}
+                <div class="item-box">
+                    <span>{{ slot|capfirst }}:</span>
+                    <div class="item">
+                        <div class="item-icon">
+                            <img src="/{{ item.icon }}" alt="headpiece" />
+                        </div>
+                        <div class="item-info">
+                            <div class="item-name">
+                                {{ item.name }}
+                            </div>
+                            <div class="item-attributes">
+                            {% if item.strength_multiplier > 1.0 or item.strength_bonus > 0 or item.intelligence_multiplier > 1.0 or item.intelligence_bonus > 0 or item.endurance_multiplier > 1.0 or item.endurance_bonus > 0 or item.speed_multiplier > 1.0 or item.speed_bonus > 0 or item.agility_multiplier > 1.0 or item.agility_bonus > 0 or item.willpower_multiplier > 1.0 or item.willpower_bonus > 0 or item.charisma_multiplier > 1.0 or item.charisma_bonus > 0 or item.luck_multiplier > 1.0 or item.luck_bonus > 0 %}
+                                <table>
+                                    <tr id="upper-rim">
+                                        <td></td>
+                                        <td>Multiplier</td>
+                                        <td>Bonus</td>
+                                    </tr>
+                                    {% if item.strength_multiplier > 1.0 or item.strength_bonus > 0 %}
+                                    <tr>
+                                        <td>Strength</td>
+                                        <td>{{ item.strength_multiplier }}</td>
+                                        <td>{{ item.strength_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.intelligence_multiplier > 1.0 or item.intelligence_bonus > 0 %}
+                                    <tr>
+                                        <td>Intelligence</td>
+                                        <td>{{ item.intelligence_multiplier }}</td>
+                                        <td>{{ item.intelligence_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.endurance_multiplier > 1.0 or item.endurance_bonus > 0 %}
+                                    <tr>
+                                        <td>Endurance</td>
+                                        <td>{{ item.endurance_multiplier }}</td>
+                                        <td>{{ item.endurance_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.speed_multiplier > 1.0 or item.speed_bonus > 0 %}
+                                    <tr>
+                                        <td>Speed</td>
+                                        <td>{{ item.speed_multiplier }}</td>
+                                        <td>{{ item.speed_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.agility_multiplier > 1.0 or item.agility_bonus > 0 %}
+                                    <tr>
+                                        <td>Agility</td>
+                                        <td>{{ item.agility_multiplier }}</td>
+                                        <td>{{ item.agility_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.willpower_multiplier > 1.0 or item.willpower_bonus > 0 %}
+                                    <tr>
+                                        <td>Willpower</td>
+                                        <td>{{ item.willpower_multiplier }}</td>
+                                        <td>{{ item.willpower_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.charisma_multiplier > 1.0 or item.charisma_bonus > 0 %}
+                                    <tr>
+                                        <td>Charisma</td>
+                                        <td>{{ item.charisma_multiplier }}</td>
+                                        <td>{{ item.charisma_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if item.luck_multiplier > 1.0 or item.luck_bonus > 0 %}
+                                    <tr>
+                                        <td>Luck</td>
+                                        <td>{{ item.luck_multiplier }}</td>
+                                        <td>{{ item.luck_bonus }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                            {% endif %}
+                            </div>
+                            <div class="item-enhancements">
+                                {% for enhancement, level in item.enhancements.items %}
+                                    <h4>{{ enhancement }} {{ level }}</h4>
+                                {% endfor %}
+                            </div>
+                            <div class="item-tooltip">
+                                {{ item.tooltip }}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="shoulders">
-
-                </div>
+            {% endfor %}
             </div>
         </div>
-
+    </div>
     {% endfor %}
 {% endblock %}
 

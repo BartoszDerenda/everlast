@@ -50,15 +50,13 @@ class Dwarf(Character):
     battles_won = models.IntegerField(default=0)
 
     # Equipment
+    weapon = models.CharField(max_length=64, blank=True, null=True)
     head = models.CharField(max_length=64, blank=True, null=True)
     shoulders = models.CharField(max_length=64, blank=True, null=True)
     chest = models.CharField(max_length=64, blank=True, null=True)
     gloves = models.CharField(max_length=64, blank=True, null=True)
     pants = models.CharField(max_length=64, blank=True, null=True)
     boots = models.CharField(max_length=64, blank=True, null=True)
-    two_hand = models.CharField(max_length=64, blank=True, null=True)
-    main_hand = models.CharField(max_length=64, blank=True, null=True)
-    off_hand = models.CharField(max_length=64, blank=True, null=True)
     trinket = models.CharField(max_length=64, blank=True, null=True)
 
     # Attributes

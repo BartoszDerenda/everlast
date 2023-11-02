@@ -1,5 +1,41 @@
 @import url('/static/palette.css');
 
+/* Globals */
+h3 {
+    font-size: 1.2em;
+    font-family: Avara, serif;
+    color: var(--gold);
+}
+
+table {
+    background-color: var(--darkred-background);
+    border: var(--gold) ridge 1px;
+    padding: 5px;
+}
+
+td {
+    background-color: var(--red-background);
+    padding: 6px;
+    border: var(--blackred-background) ridge 1px;
+}
+
+#upper-rim > td {
+    background-color: var(--blackred-background);
+    color: var(--gold);
+}
+
+.attribute-row:hover td {
+    border: var(--gold) ridge 1px;
+}
+
+
+/* Section specific */
+#dwarf {
+    display: flex;
+    flex-direction: column;
+    row-gap: 55px;
+}
+
 #card-info {
     display: flex;
     flex-direction: column;
@@ -35,35 +71,78 @@
     border: var(--gold) ridge 1px;
     padding: 10px;
 
-    > h3 {
-        font-size: 1.2em;
-        font-family: Avara, serif;
-        color: var(--gold);
-    }
-
     > table {
+        font-size: 1.1em;
+        font-family: Nunito-sans, serif;
+    }
+}
+
+#equipment {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blackred-background);
+    border: var(--gold) ridge 1px;
+    padding: 10px;
+
+    #equipment-box {
         background-color: var(--darkred-background);
         border: var(--gold) ridge 1px;
         padding: 5px;
 
-        > * {
-            font-size: 1.1em;
-            font-family: Nunito-sans, serif;
-        }
+        .item-box {
+            display: flex;
+            justify-items: center;
+            align-items: center;
 
-        & td {
-            background-color: var(--red-background);
-            padding: 6px;
-            border: var(--blackred-background) ridge 1px;
-        }
+            > span {
+                width: 15%;
+            }
 
-        #upper-rim > td {
-            background-color: var(--blackred-background);
-            color: var(--gold);
-        }
+            .item {
+                display: flex;
+                background-color: var(--blackred-background);
+                border: var(--gold) ridge 1px;
+                align-items: center;
+                text-align: center;
+                column-gap: 15px;
+                padding: 25px;
 
-        .attribute-row:hover td {
-            border: var(--gold) ridge 1px;
+                .item-icon {
+
+                    > img {
+                        width: 80px;
+                    }
+                }
+
+                .item-info {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 15px;
+                    padding-left: 10px;
+
+                    .item-name {
+                        font-size: 1.2em;
+                        font-family: Avara, serif;
+
+                    }
+
+                    .item-attributes {
+
+                    }
+
+                    .item-enhancements {
+                        background-color: var(--darkred-background);
+                        border: var(--gold) ridge 1px;
+                        padding: 5px;
+                    }
+
+                    .item-tooltip {
+                        font-size: 0.9em;
+                        font-family: Avara, serif;
+                        color: var(--gray-tooltip);
+                    }
+                }
+            }
         }
     }
 }

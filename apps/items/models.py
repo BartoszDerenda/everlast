@@ -15,7 +15,8 @@ class Weapon(Item):
     icon = models.ImageField(upload_to='static/images/item-icons/weapon-icons', default='static/images/item-icons'
                                                                                         '/weapon-icons/placeholder.png')
     item_type = models.CharField(max_length=16, default='weapon')
-    item_slot = models.JSONField(default=list)  # For when an item can be main hand and off-hand.
+    item_slot = models.CharField(max_length=16, default='weapon')
+    # For the future when I implement off-hand, two-hand and main-hand weapons.
 
     strength_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
     intelligence_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)

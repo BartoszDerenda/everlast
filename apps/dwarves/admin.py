@@ -9,7 +9,7 @@ class CustomDwarfAdmin(admin.ModelAdmin):
         ['Status', {'fields': ('status', 'status_time')}],
         ['PvP', {'fields': ('pvp_points', 'battles_fought', 'battles_won')}],
         ['Equipment', {'fields': ('head', 'shoulders', 'chest', 'gloves', 'pants', 'boots',
-                                  'two_hand', 'main_hand', 'off_hand', 'trinket', 'title')}],
+                                  'weapon', 'trinket', 'title')}],
         ['Abilities', {'fields': ['abilities', 'ability_cap']}],
         ['Armor', {'fields': ['physical_armor', 'physical_mitigation',
                               'magical_armor', 'magical_mitigation']}],

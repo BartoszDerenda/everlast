@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import F
 from django.shortcuts import render
 
@@ -86,7 +87,7 @@ def barracks(request):
 @login_required(login_url='/mountain', redirect_field_name=None)
 def dwarf(request, dwarf_id):
     warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
-    dwarf = Dwarf.objects.filter(id=dwarf_id).all()
+    dwarf_info = Dwarf.objects.filter(id=dwarf_id).values()
 
     def unpacking_equipment(query):
         for item in query:
@@ -96,79 +97,45 @@ def dwarf(request, dwarf_id):
                 return name
 
     # Equipment
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('head')
-    if unpacking_equipment(equipment_piece):
-        head = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        head = "No armor."
+    equipped_items = Dwarf.objects.filter(id=dwarf_id).values('head', 'shoulders', 'chest', 'gloves',
+                                                              'pants', 'boots', 'trinket')
+    equipment = {}
+    for eq_piece in equipped_items:
+        for slot, item_name in eq_piece.items():
+            if Armor.objects.filter(name=item_name).exists():
+                equipment.update({slot: Armor.objects.get(name=item_name)})
+            else:
+                equipment.update({slot: "No armor."})
 
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('shoulders')
-    if unpacking_equipment(equipment_piece):
-        shoulders = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        shoulders = "No armor."
+    # Updating attributes
+    dwarf_attr = {}
+    for d in dwarf_info:
+        dwarf_attr.update(
+            {'strength_total': int(d['strength_base'] * d['strength_multiplier'] + d['strength_bonus'])})
+        dwarf_attr.update(
+            {'intelligence_total': int(
+                d['intelligence_base'] * d['intelligence_multiplier'] + d['intelligence_bonus'])})
+        dwarf_attr.update(
+            {'endurance_total': int(d['endurance_base'] * d['endurance_multiplier'] + d['endurance_bonus'])})
+        dwarf_attr.update(
+            {'speed_total': int(d['speed_base'] * d['speed_multiplier'] + d['speed_bonus'])})
+        dwarf_attr.update(
+            {'agility_total': int(d['agility_base'] * d['agility_multiplier'] + d['agility_bonus'])})
+        dwarf_attr.update(
+            {'willpower_total': int(d['willpower_base'] * d['willpower_multiplier'] + d['willpower_bonus'])})
+        dwarf_attr.update(
+            {'charisma_total': int(d['charisma_base'] * d['charisma_multiplier'] + d['charisma_bonus'])})
+        dwarf_attr.update(
+            {'luck_total': int(d['luck_base'] * d['luck_multiplier'] + d['luck_bonus'])})
+    with transaction.atomic():
+        for attribute, total in dwarf_attr.items():
+            Dwarf.objects.filter(id=dwarf_id).update(**{attribute: total})
 
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('chest')
-    if unpacking_equipment(equipment_piece):
-        chest = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        chest = "No armor."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('gloves')
-    if unpacking_equipment(equipment_piece):
-        gloves = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        gloves = "No armor."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('pants')
-    if unpacking_equipment(equipment_piece):
-        pants = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        pants = "No armor."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('boots')
-    if unpacking_equipment(equipment_piece):
-        boots = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        boots = "No armor."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('trinket')
-    if unpacking_equipment(equipment_piece):
-        trinket = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        trinket = "No armor."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('two_hand')
-    if unpacking_equipment(equipment_piece):
-        two_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        two_hand = "No weapon."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('main_hand')
-    if unpacking_equipment(equipment_piece):
-        main_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        main_hand = "No weapon."
-
-    equipment_piece = Dwarf.objects.filter(id=dwarf_id).values('off_hand')
-    if unpacking_equipment(equipment_piece):
-        off_hand = Armor.objects.get(name=unpacking_equipment(equipment_piece))
-    else:
-        off_hand = "No weapon."
+    # Updated data without making a separate query.
+    dwarf_info.update(**dwarf_attr)
 
     return render(request, "dwarves/dwarf.html", {
         'warband': warband,
-        'dwarf': dwarf,
-
-        'head': head,
-        'shoulders': shoulders,
-        'chest': chest,
-        'gloves': gloves,
-        'pants': pants,
-        'boots': boots,
-        'trinket': trinket,
-
-        'two_hand': two_hand,
-        'main_hand': main_hand,
-        'off_hand': off_hand
+        'dwarf': dwarf_info,
+        'equipment': equipment
     })
