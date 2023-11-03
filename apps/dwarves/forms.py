@@ -1,5 +1,7 @@
 from django import forms
 
+from apps.accounts.models import Account
+
 
 class CreateWarband(forms.Form):
     dwarf1_quirk1 = (
@@ -91,3 +93,7 @@ class CreateWarband(forms.Form):
     dwarf5_name = forms.CharField(label='', max_length=32)
     dwarf5_quirk1 = forms.CharField(widget=forms.Select(choices=dwarf5_quirk1), label='')
     dwarf5_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf5_quirk2), label='')
+
+
+# class EquipItems(forms.Form):
+    # item = forms.ModelChoiceField()

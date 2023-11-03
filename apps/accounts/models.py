@@ -16,12 +16,12 @@ def treasury_template():
 
 
 def known_recipes_template():
-    return {'Iron Ingot': True, 'Oak Plank': True, 'Meteorite Ingot': True,
+    return ['Iron Ingot', 'Oak Plank', 'Meteorite Ingot',
 
-            'Iron Tasset': False, 'Iron Helmet': True, 'Dragonscale Chestplate': True,
+            'Iron Tasset', 'Iron Helmet', 'Dragonscale Chestplate',
 
-            'Iron Mace': True, 'Oak Staff': False, 'Flameberg': True,
-            }
+            'Iron Mace', 'Oak Staff', 'Flameberg'
+            ]
 
 
 class Account(AbstractBaseUser, PermissionsMixin):

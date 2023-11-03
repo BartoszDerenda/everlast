@@ -121,13 +121,18 @@ td {
                     padding-left: 10px;
 
                     .item-name {
-                        font-size: 1.2em;
-                        font-family: Avara, serif;
 
+                        > span {
+                            font-size: 1.2em;
+                            font-family: Avara, serif;
+                        }
                     }
 
                     .item-attributes {
 
+                        > td {
+                            background-color: #706767;
+                        }
                     }
 
                     .item-enhancements {
@@ -145,4 +150,40 @@ td {
             }
         }
     }
+}
+
+
+/* Attributes */
+.positive {
+    background-color: seagreen;
+}
+
+.negative {
+    background-color: #d00909;
+}
+
+.neutral {
+    background-color: #706767;
+}
+
+
+/* Item qualities */
+.common {
+    color: var(--common-quality);
+}
+
+.rare {
+    color: var(--rare-quality);
+}
+
+.epic {
+    color: var(--epic-quality);
+}
+
+.legendary {
+    color: var(--legendary-quality);
+}
+
+.ancient {
+    color: var(--ancient-quality);
 }

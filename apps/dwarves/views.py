@@ -1,11 +1,15 @@
+import roman
+
 from django.contrib.auth.decorators import login_required
+from django.db.models.functions import Round
 from django.db import transaction
 from django.db.models import F
 from django.shortcuts import render
 
+from apps.accounts.models import Account
 from apps.dwarves.models import Dwarf
 from apps.dwarves.forms import CreateWarband
-from apps.items.models import Armor
+from apps.items.models import Armor, Weapon, Rune
 
 
 @login_required(login_url='/mountain', redirect_field_name=None)
@@ -57,10 +61,9 @@ def barracks(request):
                                                                               endurance_base=F('endurance_base') + 5,
                                                                               speed_base=F('speed_base') - 3)
                     elif quirk == 'Wise':
-                        Dwarf.objects.filter(id=new_warband[dwarf].id).update(
-                            intelligence_base=F('intelligence_base') + 5,
-                            willpower_base=F('willpower_base') + 7,
-                            endurance_base=F('endurance_base') - 3)
+                        Dwarf.objects.filter(id=new_warband[dwarf].id).update(intelligence_base=F('intelligence_base') + 5,
+                                                                              willpower_base=F('willpower_base') + 7,
+                                                                              endurance_base=F('endurance_base') - 3)
                     elif quirk == 'Agile':
                         Dwarf.objects.filter(id=new_warband[dwarf].id).update(speed_base=F('speed_base') + 5,
                                                                               agility_base=F('agility_base') + 7,
@@ -89,12 +92,55 @@ def dwarf(request, dwarf_id):
     warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
     dwarf_info = Dwarf.objects.filter(id=dwarf_id).values()
 
-    def unpacking_equipment(query):
-        for item in query:
-            for slot, name in item.items():
-                if name is None:
-                    return False
-                return name
+    # Query items from inventory that can be equipped
+    armor_list = {}
+    weapon_list = {}
+    rune_list = {}
+    query = Account.objects.filter(id=request.user.id).values('treasury')[0]
+    for key, treasury in query.items():
+        for item, quantity in treasury.items():
+            if Armor.objects.filter(name=item).exists():
+                armor_list.update({item: quantity})
+            elif Weapon.objects.filter(name=item).exists():
+                weapon_list.update({item: quantity})
+            elif Rune.objects.filter(name=item).exists():
+                rune_list.update(({item: quantity}))
+
+
+    def equip_items(item_name):
+        # Update Dwarf attributes based off of the equipped items.
+        armor_stats = Armor.objects.filter(name=item_name).values('strength_multiplier', 'strength_bonus',
+                                                                  'intelligence_multiplier', 'intelligence_bonus',
+                                                                  'endurance_multiplier', 'endurance_bonus',
+                                                                  'speed_multiplier', 'speed_bonus',
+                                                                  'agility_multiplier', 'agility_bonus',
+                                                                  'willpower_multiplier', 'willpower_bonus',
+                                                                  'charisma_multiplier', 'charisma_bonus',
+                                                                  'luck_multiplier', 'luck_bonus',
+                                                                  'physical_armor', 'magical_armor')
+        armor_attributes = armor_stats[0]
+        dwarf_attributes = Dwarf.objects.filter(id=dwarf_id).values()
+        dwarf_attributes.update(
+            strength_multiplier=Round(F('strength_multiplier') + armor_attributes['strength_multiplier'], 2),
+            strength_bonus=F('strength_bonus') + armor_attributes['strength_bonus'],
+            intelligence_multiplier=Round(F('intelligence_multiplier') + armor_attributes['intelligence_multiplier'],
+                                          2),
+            intelligence_bonus=F('intelligence_bonus') + armor_attributes['intelligence_bonus'],
+            endurance_multiplier=Round(F('endurance_multiplier') + armor_attributes['endurance_multiplier'], 2),
+            endurance_bonus=F('endurance_bonus') + armor_attributes['endurance_bonus'],
+            speed_multiplier=Round(F('speed_multiplier') + armor_attributes['speed_multiplier'], 2),
+            speed_bonus=F('speed_bonus') + armor_attributes['speed_bonus'],
+            agility_multiplier=Round(F('agility_multiplier') + armor_attributes['agility_multiplier'], 2),
+            agility_bonus=F('agility_bonus') + armor_attributes['agility_bonus'],
+            willpower_multiplier=Round(F('willpower_multiplier') + armor_attributes['willpower_multiplier'], 2),
+            willpower_bonus=F('willpower_bonus') + armor_attributes['willpower_bonus'],
+            charisma_multiplier=Round(F('charisma_multiplier') + armor_attributes['charisma_multiplier'], 2),
+            charisma_bonus=F('charisma_bonus') + armor_attributes['charisma_bonus'],
+            luck_multiplier=Round(F('luck_multiplier') + armor_attributes['luck_multiplier'], 2),
+            luck_bonus=F('luck_bonus') + armor_attributes['luck_bonus'],
+            physical_armor=F('physical_armor') + armor_attributes['physical_armor'],
+            magical_armor=F('magical_armor') + armor_attributes['magical_armor']
+        )
 
     # Equipment
     equipped_items = Dwarf.objects.filter(id=dwarf_id).values('head', 'shoulders', 'chest', 'gloves',
@@ -103,11 +149,15 @@ def dwarf(request, dwarf_id):
     for eq_piece in equipped_items:
         for slot, item_name in eq_piece.items():
             if Armor.objects.filter(name=item_name).exists():
+                # Add equipped item into the dictionary used in the context.
                 equipment.update({slot: Armor.objects.get(name=item_name)})
+                # armor_enhancements = Armor.objects.filter(name=item_name).values('enhancements')
+                # Dwarf.objects.filter(id=dwarf_id).update(**armor_enhancements)
             else:
-                equipment.update({slot: "No armor."})
+                # If no item was found, update context with "No armor" on that slot.
+                equipment.update({slot: "No " + slot + " is equipped."})
 
-    # Updating attributes
+    # Updating total attributes
     dwarf_attr = {}
     for d in dwarf_info:
         dwarf_attr.update(

@@ -11,4 +11,10 @@
     --red-hover: #c01709;
     --gray-tooltip: #a49393;
     --red-notification: #ff1300;
+
+    --common-quality: #09b609;
+    --rare-quality: #1493e1;
+    --epic-quality: #c714c7;
+    --legendary-quality: #ff8800;
+    --ancient-quality: #ab0e0e;
 }

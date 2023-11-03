@@ -18,14 +18,14 @@ class Weapon(Item):
     item_slot = models.CharField(max_length=16, default='weapon')
     # For the future when I implement off-hand, two-hand and main-hand weapons.
 
-    strength_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    intelligence_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    endurance_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    speed_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    agility_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    willpower_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    charisma_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    luck_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    strength_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    intelligence_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    endurance_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    speed_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    agility_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    willpower_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    charisma_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    luck_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 
     strength_bonus = models.IntegerField(default=0)
     intelligence_bonus = models.IntegerField(default=0)
@@ -48,14 +48,14 @@ class Armor(Item):
     item_type = models.CharField(max_length=16, default='armor')
     item_slot = models.CharField(max_length=16)
 
-    strength_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    intelligence_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    endurance_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    speed_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    agility_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    willpower_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    charisma_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    luck_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
+    strength_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    intelligence_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    endurance_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    speed_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    agility_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    willpower_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    charisma_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    luck_multiplier = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 
     strength_bonus = models.IntegerField(default=0)
     intelligence_bonus = models.IntegerField(default=0)
@@ -93,3 +93,9 @@ class Recipe(Item):
 
     recipe_for = models.CharField(max_length=64)
     recipe_materials = models.JSONField(default=dict)
+
+
+class Enhancement(models.Model):
+    name = models.CharField(max_length=32)
+    power = models.IntegerField()
+    effect = models.TextField(max_length=128)

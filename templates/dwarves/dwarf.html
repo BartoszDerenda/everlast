@@ -91,96 +91,137 @@
             </table>
         </div>
 
+        <div id="equipment-interface">
+            <form method="POST">
+                {% csrf_token %}
+                {{ equipment_form }}
+                <input type="submit" name="equip_items" value="Equip item.">
+            </form>
+        </div>
+
         <div id="equipment">
             <h3>Equipment</h3>
+
             <div id="equipment-box">
             {% for slot, item in equipment.items %}
+
                 <div class="item-box">
                     <span>{{ slot|capfirst }}:</span>
+
                     <div class="item">
+
+                    <!-- If no item is equipped on this slot, say the string. -->
+                    {% if 'is equipped.' in item %}
+                        <p>{{ item }}</p>
+                    {% else %}
+
+                        <!-- This is the stuff on the left -->
                         <div class="item-icon">
-                            <img src="/{{ item.icon }}" alt="headpiece" />
+                            <img src="/{{ item.icon }}" alt="{{ slot }}" />
                         </div>
+
+                        <!-- This is the stuff on the right -->
                         <div class="item-info">
+
+                            <!-- Item name -->
                             <div class="item-name">
-                                {{ item.name }}
+                                <span class="{{ item.rarity }}">{{ item.name }}</span>
                             </div>
+
+                            <!-- Attributes -->
                             <div class="item-attributes">
-                            {% if item.strength_multiplier > 1.0 or item.strength_bonus > 0 or item.intelligence_multiplier > 1.0 or item.intelligence_bonus > 0 or item.endurance_multiplier > 1.0 or item.endurance_bonus > 0 or item.speed_multiplier > 1.0 or item.speed_bonus > 0 or item.agility_multiplier > 1.0 or item.agility_bonus > 0 or item.willpower_multiplier > 1.0 or item.willpower_bonus > 0 or item.charisma_multiplier > 1.0 or item.charisma_bonus > 0 or item.luck_multiplier > 1.0 or item.luck_bonus > 0 %}
+                            {% if item.strength_multiplier == 0.00 and item.strength_bonus == 0 and item.intelligence_multiplier == 0.00 and item.intelligence_bonus == 0 and item.endurance_multiplier == 0.00 and item.endurance_bonus == 0 and item.speed_multiplier == 0.00 and item.speed_bonus == 0 and item.agility_multiplier == 0.00 and item.agility_bonus == 0 and item.willpower_multiplier == 0.00 and item.willpower_bonus == 0 and item.charisma_multiplier == 0.00 and item.charisma_bonus == 0 and item.luck_multiplier == 0.00 and item.luck_bonus == 0 %}
+                            {% else %}
                                 <table>
                                     <tr id="upper-rim">
                                         <td></td>
                                         <td>Multiplier</td>
                                         <td>Bonus</td>
                                     </tr>
-                                    {% if item.strength_multiplier > 1.0 or item.strength_bonus > 0 %}
+                                    {% if item.strength_multiplier == 0.00 and item.strength_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Strength</td>
-                                        <td>{{ item.strength_multiplier }}</td>
-                                        <td>{{ item.strength_bonus }}</td>
+                                        <td class="{% if item.strength_multiplier > 0 %}positive{% elif item.strength_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.strength_multiplier }}</td>
+                                        <td class="{% if item.strength_bonus > 0 %}positive{% elif item.strength_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.strength_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.intelligence_multiplier > 1.0 or item.intelligence_bonus > 0 %}
+                                    {% if item.intelligence_multiplier == 0.00 and item.intelligence_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Intelligence</td>
-                                        <td>{{ item.intelligence_multiplier }}</td>
-                                        <td>{{ item.intelligence_bonus }}</td>
+                                        <td class="{% if item.intelligence_multiplier > 0 %}positive{% elif item.intelligence_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.intelligence_multiplier }}</td>
+                                        <td class="{% if item.intelligence_bonus > 0 %}positive{% elif item.intelligence_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.intelligence_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.endurance_multiplier > 1.0 or item.endurance_bonus > 0 %}
+                                    {% if item.endurance_multiplier == 0.00 and item.endurance_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Endurance</td>
-                                        <td>{{ item.endurance_multiplier }}</td>
-                                        <td>{{ item.endurance_bonus }}</td>
+                                        <td class="{% if item.endurance_multiplier > 0 %}positive{% elif item.endurance_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.endurance_multiplier }}</td>
+                                        <td class="{% if item.endurance_bonus > 0 %}positive{% elif item.endurance_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.endurance_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.speed_multiplier > 1.0 or item.speed_bonus > 0 %}
+                                    {% if item.speed_multiplier == 0.00 and item.speed_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Speed</td>
-                                        <td>{{ item.speed_multiplier }}</td>
-                                        <td>{{ item.speed_bonus }}</td>
+                                        <td class="{% if item.speed_multiplier > 0 %}positive{% elif item.speed_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.speed_multiplier }}</td>
+                                        <td class="{% if item.speed_bonus > 0 %}positive{% elif item.speed_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.speed_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.agility_multiplier > 1.0 or item.agility_bonus > 0 %}
+                                    {% if item.agility_multiplier == 0.00 and item.agility_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Agility</td>
-                                        <td>{{ item.agility_multiplier }}</td>
-                                        <td>{{ item.agility_bonus }}</td>
+                                        <td class="{% if item.agility_multiplier > 0 %}positive{% elif item.agility_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.agility_multiplier }}</td>
+                                        <td class="{% if item.agility_bonus > 0 %}positive{% elif item.agility_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.agility_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.willpower_multiplier > 1.0 or item.willpower_bonus > 0 %}
+                                    {% if item.willpower_multiplier == 0.00 and item.willpower_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Willpower</td>
-                                        <td>{{ item.willpower_multiplier }}</td>
-                                        <td>{{ item.willpower_bonus }}</td>
+                                        <td class="{% if item.willpower_multiplier > 0 %}positive{% elif item.willpower_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.willpower_multiplier }}</td>
+                                        <td class="{% if item.willpower_bonus > 0 %}positive{% elif item.willpower_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.willpower_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.charisma_multiplier > 1.0 or item.charisma_bonus > 0 %}
+                                    {% if item.charisma_multiplier == 0.00 and item.charisma_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Charisma</td>
-                                        <td>{{ item.charisma_multiplier }}</td>
-                                        <td>{{ item.charisma_bonus }}</td>
+                                        <td class="{% if item.charisma_multiplier > 0 %}positive{% elif item.charisma_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.charisma_multiplier }}</td>
+                                        <td class="{% if item.charisma_bonus > 0 %}positive{% elif item.charisma_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.charisma_bonus }}</td>
                                     </tr>
                                     {% endif %}
-                                    {% if item.luck_multiplier > 1.0 or item.luck_bonus > 0 %}
+                                    {% if item.luck_bonus == 0.00 and item.luck_bonus == 0 %}
+                                    {% else %}
                                     <tr>
                                         <td>Luck</td>
-                                        <td>{{ item.luck_multiplier }}</td>
-                                        <td>{{ item.luck_bonus }}</td>
+                                        <td class="{% if item.luck_multiplier > 0 %}positive{% elif item.luck_multiplier == 0 %}neutral{% else %}negative{% endif %}">{{ item.luck_multiplier }}</td>
+                                        <td class="{% if item.luck_bonus > 0 %}positive{% elif item.luck_bonus == 0 %}neutral{% else %}negative{% endif %}">{{ item.luck_bonus }}</td>
                                     </tr>
                                     {% endif %}
                                 </table>
                             {% endif %}
                             </div>
+
+                            <!-- Enhancements -->
+                            {% if item.enhancements %}
                             <div class="item-enhancements">
                                 {% for enhancement, level in item.enhancements.items %}
                                     <h4>{{ enhancement }} {{ level }}</h4>
                                 {% endfor %}
                             </div>
+                            {% endif %}
+
+                            <!-- Tooltip -->
                             <div class="item-tooltip">
                                 {{ item.tooltip }}
                             </div>
+
                         </div>
+                    {% endif %}
                     </div>
                 </div>
             {% endfor %}
