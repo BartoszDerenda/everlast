@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
+from ..items.models import Recipe
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 def treasury_template():
@@ -37,9 +40,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
-    treasury = models.JSONField(default=treasury_template)
-    known_recipes = models.JSONField(default=known_recipes_template)
-
     gold = models.IntegerField(default=0)
     rubies = models.IntegerField(default=0)
 
@@ -73,6 +73,30 @@ class Guestbook(models.Model):
     profile = models.ForeignKey(Account, related_name='profile', null=True, on_delete=models.CASCADE)
     guest = models.ForeignKey(Account, related_name='guest', null=True, on_delete=models.DO_NOTHING)
     timestamp = models.DateTimeField(default=timezone.now)
+
+
+class Treasury(models.Model):
+    user = models.ForeignKey(Account, related_name='owner', null=False, on_delete=models.DO_NOTHING)
+    content_type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING)
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')
+    name = models.CharField(max_length=64, null=True)
+    item_type = models.CharField(max_length=32, null=True)
+    quantity = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Treasury"
+        verbose_name_plural = "Treasuries"
+
+
+class KnownRecipes(models.Model):
+    user = models.ForeignKey(Account, related_name='user', null=False, on_delete=models.DO_NOTHING)
+    recipe = models.ForeignKey(Recipe, related_name='item', null=False, on_delete=models.DO_NOTHING)
+    known = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Known recipe"
+        verbose_name_plural = "Known recipes"
 
 
 def is_staff(self):

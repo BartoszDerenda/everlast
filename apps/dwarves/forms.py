@@ -1,6 +1,7 @@
 from django import forms
 
-from apps.accounts.models import Account
+from apps.accounts.models import Account, Treasury
+from apps.items.models import Item, Armor
 
 
 class CreateWarband(forms.Form):
@@ -95,5 +96,17 @@ class CreateWarband(forms.Form):
     dwarf5_quirk2 = forms.CharField(widget=forms.Select(choices=dwarf5_quirk2), label='')
 
 
-# class EquipItems(forms.Form):
-    # item = forms.ModelChoiceField()
+class EquipmentForm(forms.ModelForm):
+
+    def __init__(self, user_id, *args, **kwargs):
+        super(EquipmentForm, self).__init__(*args, **kwargs)
+        self.user_id = user_id
+        # self.fields['items'].queryset = Treasury.objects.filter(user=self.request.user)
+
+    class Meta:
+        model = Treasury
+        fields = ['name', 'quantity']
+
+    name = forms.CharField()
+    quantity = forms.IntegerField()
+

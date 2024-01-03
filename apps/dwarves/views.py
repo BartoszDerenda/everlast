@@ -1,14 +1,15 @@
 import roman
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.db.models.functions import Round
 from django.db import transaction
 from django.db.models import F
 from django.shortcuts import render
 
-from apps.accounts.models import Account
+from apps.accounts.models import Account, Treasury
 from apps.dwarves.models import Dwarf
-from apps.dwarves.forms import CreateWarband
+from apps.dwarves.forms import CreateWarband, EquipmentForm
 from apps.items.models import Armor, Weapon, Rune
 
 
@@ -92,20 +93,34 @@ def dwarf(request, dwarf_id):
     warband = Dwarf.objects.filter(leader=request.user).values('id', 'name', 'status')
     dwarf_info = Dwarf.objects.filter(id=dwarf_id).values()
 
+    x = Treasury.objects.filter(user_id=request.user.id).values()
+    for query in x:
+        content_type = ContentType.objects.filter(id=query['content_type_id'])
+        print(query)
+        print(content_type)
+
+    equipment_form = EquipmentForm(user_id=request.user.id)
+    if request.method == 'POST':
+        equipment_form = EquipmentForm(request.POST)
+        if equipment_form.is_valid():
+            pass
+        else:
+            equipment_form = EquipmentForm(user_id=request.user.id)
+
     # Query items from inventory that can be equipped
     armor_list = {}
     weapon_list = {}
     rune_list = {}
-    query = Account.objects.filter(id=request.user.id).values('treasury')[0]
-    for key, treasury in query.items():
-        for item, quantity in treasury.items():
-            if Armor.objects.filter(name=item).exists():
-                armor_list.update({item: quantity})
-            elif Weapon.objects.filter(name=item).exists():
-                weapon_list.update({item: quantity})
-            elif Rune.objects.filter(name=item).exists():
-                rune_list.update(({item: quantity}))
 
+    # query = Account.objects.filter(id=request.user.id).values('treasury')[0]
+    # for key, treasury in query.items():
+    # for item, quantity in treasury.items():
+    # if Armor.objects.filter(name=item).exists():
+    #  armor_list.update({item: quantity})
+    # elif Weapon.objects.filter(name=item).exists():
+    #     weapon_list.update({item: quantity})
+    # elif Rune.objects.filter(name=item).exists():
+    #    rune_list.update(({item: quantity}))
 
     def equip_items(item_name):
         # Update Dwarf attributes based off of the equipped items.
@@ -187,5 +202,6 @@ def dwarf(request, dwarf_id):
     return render(request, "dwarves/dwarf.html", {
         'warband': warband,
         'dwarf': dwarf_info,
-        'equipment': equipment
+        'equipment': equipment,
+        'equipment_form': equipment_form
     })
